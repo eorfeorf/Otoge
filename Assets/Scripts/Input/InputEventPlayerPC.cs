@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 
-public class InputEventPlayer : IInputEvent
+public class InputEventPlayerPC : IInputEvent
 {
     public IReadOnlyReactiveProperty<int> Touch => touch;
     private ReactiveProperty<int> touch = new();
@@ -13,7 +13,7 @@ public class InputEventPlayer : IInputEvent
 
     private CompositeDisposable disposable = new();
     
-    public InputEventPlayer()
+    public InputEventPlayerPC()
     {
         Observable.EveryUpdate().Subscribe(_ =>
         {

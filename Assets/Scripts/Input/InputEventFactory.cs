@@ -6,6 +6,6 @@ public class InputEventFactory
     
     public InputEventFactory()
     {
-        InputEvent = new InputEventPlayer();
+        InputEvent = new InputEventPlayerPC();
     }
 }
