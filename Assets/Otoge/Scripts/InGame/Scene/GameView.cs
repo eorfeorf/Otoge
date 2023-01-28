@@ -10,15 +10,15 @@ public class GameView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rankText;
     [SerializeField] private TextMeshProUGUI comboText;
 
-    private Vector2 linePos = new Vector2();
-    private readonly Dictionary<int, NoteView> noteViews = new Dictionary<int, NoteView>();
+    private Vector2 linePos;
+    private readonly Dictionary<int, NoteView> noteViews = new();
 
     private void Start()
     {
+        // ラインの中央にbottom調整.
         linePos = line.anchoredPosition;
         var noteParentRectTransform = noteParent.GetComponent<RectTransform>();
         noteParentRectTransform.anchoredPosition = linePos;
-        // ラインの中央にbottom調整.
         noteParentRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, line.rect.height);
     }
 
@@ -98,5 +98,16 @@ public class GameView : MonoBehaviour
     {
         comboText.text = count.ToString();
         comboText.gameObject.SetActive(count != 0);
+    }
+
+    /// <summary>
+    /// リセット.
+    /// </summary>
+    public void Reset()
+    {
+        foreach (var view in noteViews)
+        {
+            view.Value.GameObject.SetActive(true);
+        }
     }
 }
