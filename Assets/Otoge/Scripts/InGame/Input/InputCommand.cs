@@ -12,11 +12,16 @@ public class InputCommand
     /// タップ.
     /// </summary>
     public IReadOnlyReactiveProperty<InputCommandData> Tap => tap;
-    private ReactiveProperty<InputCommandData> tap = new();
+    private readonly ReactiveProperty<InputCommandData> tap = new();
+    /// <summary>
+    /// ホールド.
+    /// </summary>
+    public IReadOnlyReactiveProperty<InputCommandData> Hold => hold;
+    private readonly ReactiveProperty<InputCommandData> hold = new();
 
-    private readonly CompositeDisposable disposable = new();
 
     private readonly Dictionary<int, InputEventData> inputEventMap = new();
+    private readonly CompositeDisposable disposable = new();
     
     public InputCommand(IInputEvent inputEvent)
     {

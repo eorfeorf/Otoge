@@ -1,17 +1,16 @@
 using UniRx;
 using UnityEngine;
 
-public class GamePresenter : MonoBehaviour
+public class InGamePresenter : MonoBehaviour
 {
     [SerializeField] private GameView view;
     
-    private GameModel model;
-
+    private InGameModel model;
     private readonly CompositeDisposable disposable = new();
 
     private void Awake()
     {
-        model = new GameModel(notes => view.Initialize(notes), disposable);
+        model = new InGameModel(notes => view.Initialize(notes), disposable);
     }
 
     private void Start()
@@ -38,7 +37,6 @@ public class GamePresenter : MonoBehaviour
         model.OnChangedCombo.SkipLatestValueOnSubscribe().Subscribe(count =>
         {
             view.ChangedCombo(count);
-            
         }).AddTo(this);
         
         // リセット
@@ -47,6 +45,7 @@ public class GamePresenter : MonoBehaviour
             view.Reset();
         }).AddTo(this);
         
+        // TODO：後でかえる.
         model.Play();
     }
 

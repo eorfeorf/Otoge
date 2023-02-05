@@ -16,6 +16,6 @@ public class Note
     public int Id;
     public int Lane;
     public float Time;
-    public bool Active;   
+    public bool Active;
     public NoteType Type;
 }

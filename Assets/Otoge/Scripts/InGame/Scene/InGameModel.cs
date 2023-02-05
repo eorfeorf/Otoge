@@ -7,7 +7,7 @@ using Unit = UniRx.Unit;
 /// <summary>
 /// ゲーム中の
 /// </summary>
-public class GameModel
+public class InGameModel
 {
     /// <summary>
     /// 入力適用イベント.
@@ -40,15 +40,10 @@ public class GameModel
     private InGamePlayHandler inGamePlayHandler;
     private ProgressTimer progressTimer;
 
-    public GameModel(Action<IList<Note>> onInitialize, CompositeDisposable disposable)
+    public InGameModel(Action<IList<Note>> onInitialize, CompositeDisposable disposable)
     {
-        // ノーツデータの生成.
         noteContainer = new NoteContainer();
-
-        // 時間更新タイマー.
         progressTimer = new ProgressTimer(disposable);
-        
-        // レーンに対して操作を適用.
         inGamePlayHandler = new InGamePlayHandler(noteContainer, progressTimer);
         
         // ノーツランク適用.
