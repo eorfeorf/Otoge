@@ -8,11 +8,6 @@ public class Combo
     public IReactiveProperty<int> Count => count;
     private ReactiveProperty<int> count = new();
     
-    public Combo()
-    {
-        
-    }
-
     /// <summary>
     /// コンボ追加
     /// </summary>

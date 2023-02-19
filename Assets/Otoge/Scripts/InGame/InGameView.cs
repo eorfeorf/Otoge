@@ -1,14 +1,22 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class GameView : MonoBehaviour
+public class InGameView : MonoBehaviour
 {
     [SerializeField] private RectTransform line;
     [SerializeField] private RectTransform noteParent;
     [SerializeField] private GameObject notePrefab;
-    [SerializeField] private TextMeshProUGUI rankText;
-    [SerializeField] private TextMeshProUGUI comboText;
+    [SerializeField] private RankView rankView;
+    [SerializeField] private ComboView comboView;
+
+    /// <summary>
+    /// コンボ.
+    /// </summary>
+    public ComboView ComboView => comboView;
+    /// <summary>
+    /// 判定文字.
+    /// </summary>
+    public RankView RankView => rankView;
 
     private Vector2 linePos;
     private readonly Dictionary<int, NoteView> noteViews = new();
@@ -26,15 +34,16 @@ public class GameView : MonoBehaviour
     /// 初期化.
     /// </summary>
     /// <param name="notes"></param>
-    public void Initialize(IList<Note> notes)
+    public void Initialize(ICollection<Note> notes)
     {
         foreach (var note in notes)
         {
             var view = new NoteView();
+            // ノーツタイプによって描画が変わる.
             view.Time = note.Time;
             view.GameObject = Instantiate(notePrefab, noteParent);
             view.RectTransform = view.GameObject.GetComponent<RectTransform>();
-            noteViews.Add(note.Id, view);
+            noteViews.Add(note.UId, view);
         }
     }
 
@@ -55,49 +64,21 @@ public class GameView : MonoBehaviour
     }
 
     /// <summary>
+    /// ノーツ適用.
+    /// </summary>
+    /// <param name="note"></param>
+    public void ApplyNote(Note note)
+    {
+        noteViews[note.UId].GameObject.SetActive(false);
+    }
+
+    /// <summary>
     /// ノーツが通り過ぎた.
     /// </summary>
     /// <param name="note"></param>
     public void PassNote(Note note)
     {
-        ApplyRank(note, GameDefine.JudgeRank.Miss);
-        return;
-        var view = noteViews[note.Id];
-        view.GameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// ランク反映.
-    /// </summary>
-    /// <param name="rank"></param>
-    public void ApplyRank(Note note, GameDefine.JudgeRank rank)
-    {
-        noteViews[note.Id].GameObject.SetActive(false);
-        switch (rank)
-        {
-            case GameDefine.JudgeRank.Perfect:
-                rankText.text = GameText.RANK_PERFECT;
-                break;
-            case GameDefine.JudgeRank.Great:
-                rankText.text = GameText.RANK_GREAT;
-                break;
-            case GameDefine.JudgeRank.Good:
-                rankText.text = GameText.RANK_GOOD;
-                break;
-            case GameDefine.JudgeRank.Miss:
-                rankText.text = GameText.RANK_MISS;
-                break;
-        }
-    }
-
-    /// <summary>
-    /// コンボ数変化.
-    /// </summary>
-    /// <param name="count"></param>
-    public void ChangedCombo(int count)
-    {
-        comboText.text = count.ToString();
-        comboText.gameObject.SetActive(count != 0);
+        noteViews[note.UId].GameObject.SetActive(false);
     }
 
     /// <summary>

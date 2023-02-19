@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InGamePresenter : MonoBehaviour
 {
-    [SerializeField] private GameView view;
+    [SerializeField] private InGameView view;
     
     private InGameModel model;
     private readonly CompositeDisposable disposable = new();
@@ -22,21 +22,22 @@ public class InGamePresenter : MonoBehaviour
         }).AddTo(this);
         
         // ノーツが通り過ぎた.
-        model.OnPassNote.Subscribe(note =>
+        model.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(note =>
         {
             view.PassNote(note);
         }).AddTo(this);
         
         // ノーツランク反映.
-        model.OnApplyRank.SkipLatestValueOnSubscribe().Subscribe(value =>
+        model.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
-            view.ApplyRank(value.Item1, value.Item2);
+            view.ApplyNote(data.Note);
+            view.RankView.ApplyRankText(data.Rank);
         }).AddTo(this);
         
         // コンボ数変化.
         model.OnChangedCombo.SkipLatestValueOnSubscribe().Subscribe(count =>
         {
-            view.ChangedCombo(count);
+            view.ComboView.ChangedCombo(count);
         }).AddTo(this);
         
         // リセット

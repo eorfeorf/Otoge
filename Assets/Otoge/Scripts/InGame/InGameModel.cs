@@ -5,23 +5,22 @@ using UnityEngine;
 using Unit = UniRx.Unit;
 
 /// <summary>
-/// ゲーム中の
+/// インゲームの進行を管理するクラス.
 /// </summary>
 public class InGameModel
 {
     /// <summary>
     /// 入力適用イベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<(Note, GameDefine.JudgeRank)> OnApplyRank => inGamePlayHandler.OnApplyRank;
+    public IReadOnlyReactiveProperty<ApplyNoteData> OnApplyNote => inGamePlayHandler.OnApplyNote;
+    /// <summary>
+    /// ノーツが通り過ぎたイベント.
+    /// </summary>
+    public IReadOnlyReactiveProperty<Note> OnPassNote => inGamePlayHandler.OnPassNote;
     /// <summary>
     /// 経過時間更新.
     /// </summary>
     public IReadOnlyReactiveProperty<float> OnProgressTime => progressTimer.OnProgress;
-    /// <summary>
-    /// ノーツが通り過ぎたイベント.
-    /// </summary>
-    public IObservable<Note> OnPassNote => onPassNote;
-    private readonly ISubject<Note> onPassNote = new Subject<Note>();
     /// <summary>
     /// コンボ数変化.
     /// </summary>
@@ -32,38 +31,48 @@ public class InGameModel
     public IReadOnlyReactiveProperty<Unit> OnReset => onReset;
     private readonly ReactiveProperty<Unit> onReset = new ReactiveProperty<Unit>();
     
-    // ゲームプレイ.
-    private bool isStart = false;
-    private readonly Combo combo = new();
 
+    /// <summary>
+    /// ノーツ管理.
+    /// </summary>
     private NoteContainer noteContainer;
+    /// <summary>
+    /// インゲーム管理.
+    /// </summary>
     private InGamePlayHandler inGamePlayHandler;
+    /// <summary>
+    /// タイマー.
+    /// </summary>
     private ProgressTimer progressTimer;
+    /// <summary>
+    /// コンボ.
+    /// </summary>
+    private Combo combo;
 
-    public InGameModel(Action<IList<Note>> onInitialize, CompositeDisposable disposable)
+    /// <summary>
+    /// ゲームが開始されたか
+    /// </summary>
+    private bool isStart = false;
+    
+    public InGameModel(Action<ICollection<Note>> onInitialize, CompositeDisposable disposable)
     {
         noteContainer = new NoteContainer();
         progressTimer = new ProgressTimer(disposable);
+        combo = new Combo();
         inGamePlayHandler = new InGamePlayHandler(noteContainer, progressTimer);
         
         // ノーツランク適用.
-        inGamePlayHandler.OnApplyRank.SkipLatestValueOnSubscribe().Subscribe(tuple =>
+        inGamePlayHandler.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
+            // コンボ加算.
             combo.Add();
         }).AddTo(disposable);
         
-        // 時間更新.
-        progressTimer.OnProgress.Subscribe(progressTime =>
+        // ノーツが通り過ぎた.
+        inGamePlayHandler.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(note =>
         {
-            // 通り過ぎた.
-            var passedNote = CheckPassNote(noteContainer.Notes, progressTime);
-            if (passedNote != null)
-            {
-                // 削除.
-                passedNote.Active = false;
-                combo.Reset();
-                onPassNote.OnNext(passedNote);
-            }
+            // コンボリセット.
+            combo.Reset();
         }).AddTo(disposable);
 
         // 更新.
@@ -77,7 +86,7 @@ public class InGameModel
         
         // 初期化完了通知.
         Debug.Log("[GameModel] Initialized.");
-        onInitialize(noteContainer.Notes);
+        onInitialize(noteContainer.Notes.Values);
     }
 
     /// <summary>
@@ -95,29 +104,7 @@ public class InGameModel
     public void Reset()
     {
         progressTimer.Start();
-        noteContainer.AllActive();
+        noteContainer.SetActiveAll(true);
         onReset.SetValueAndForceNotify(Unit.Default);
-    }
-
-    /// <summary>
-    /// ノーツが通り過ぎたか.
-    /// </summary>
-    private Note CheckPassNote(IList<Note> notes, float progressTime)
-    {
-        foreach (var note in notes)
-        {
-            if (!note.Active)
-            {
-                continue;
-            }
-            
-            var passTime = note.Time + GameDefine.TimingGood;
-            if (passTime < progressTime)
-            {
-                return note;
-            }
-        }
-
-        return null;
     }
 }
