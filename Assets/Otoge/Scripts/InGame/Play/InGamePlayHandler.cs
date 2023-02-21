@@ -30,10 +30,10 @@ public class InGamePlayHandler
         inputCommand = new InputCommand(inputEventFactory.InputEvent);
         this.noteContainer = noteContainer;
 
+        // タップ.
         inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
             // そのレーンの生きてるノーツだけ取得.
-            //var note = noteContainer.Notes.First(note => note.Value.Active && note.Value.Lane == data.Lane).Value;
             var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Active && n.Value.Lane == data.Lane).Value;
 
             if (note == null)
@@ -52,11 +52,11 @@ public class InGamePlayHandler
             ApplyCommand(note, progressTimer.OnProgress.Value);
         }).AddTo(disposable);
 
+        // 長押し.
         inputCommand.Hold.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
             // そのレーンの生きてるノーツだけ取得.
-            // 
-            var note = noteContainer.Notes.FirstOrDefault(note => note.Value.Lane == data.Lane && note.Value.Active).Value;
+            var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Lane == data.Lane && n.Value.Active).Value;
 
             if (note == null)
             {

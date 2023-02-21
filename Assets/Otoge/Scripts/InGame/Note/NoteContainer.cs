@@ -17,10 +17,10 @@ public class NoteContainer
     /// </summary>
     public NoteContainer()
     {
-        for (int noteCount = 0; noteCount < 10; ++noteCount)
+        for (int i = 0; i < 10; ++i)
         {
             // 譜面情報からわかる.
-            var note = Create(NoteType.Tap, noteCount, 0, noteCount, noteCount);
+            var note = Create(NoteType.Tap, i, i%2, i/2f, i);
             notes.Add(note.UId, note);
         }   
     }

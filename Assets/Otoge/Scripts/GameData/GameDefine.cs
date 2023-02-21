@@ -1,11 +1,13 @@
 ﻿
+using UnityEngine;
+
 /// <summary>
 /// 定数.
 /// </summary>
 public static class GameDefine
 {
     // レーン数.
-    public const int LaneNum = 2;
+    public static readonly int LaneNum = 2;
     
     // 判定ランク.
     public enum JudgeRank

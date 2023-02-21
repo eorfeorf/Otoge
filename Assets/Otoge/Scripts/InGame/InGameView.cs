@@ -36,13 +36,21 @@ public class InGameView : MonoBehaviour
     /// <param name="notes"></param>
     public void Initialize(ICollection<Note> notes)
     {
+        int screenCenterW = Screen.width / GameDefine.LaneNum;
+        float laneHalfW = screenCenterW / 2f;
         foreach (var note in notes)
         {
+            // 必要な情報はNoteViewに詰め込む.
             var view = new NoteView();
-            // ノーツタイプによって描画が変わる.
             view.Time = note.Time;
             view.GameObject = Instantiate(notePrefab, noteParent);
             view.RectTransform = view.GameObject.GetComponent<RectTransform>();
+            // ノーツのX位置.
+            var posX = screenCenterW * note.Lane + laneHalfW;
+            posX -= screenCenterW; // 画面中央が基準だったのでhalf分引く
+            posX *= 0.4f; // 調整
+            view.RectTransform.anchoredPosition = new Vector2(posX, 0f);
+            Debug.Log($"[InGameView] posX:{posX}");
             noteViews.Add(note.UId, view);
         }
     }
