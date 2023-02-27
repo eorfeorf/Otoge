@@ -6,7 +6,7 @@ using UnityEngine;
 public class ComboView : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI comboText;
+    private TextMeshPro comboText;
 
     /// <summary>
     /// コンボ数変化.

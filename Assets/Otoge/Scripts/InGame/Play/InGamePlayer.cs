@@ -5,7 +5,7 @@ using UniRx;
 /// <summary>
 /// インゲームのロジック管理.
 /// </summary>
-public class InGamePlayHandler
+public class InGamePlayer
 {
     /// <summary>
     /// 入力適用イベント.
@@ -24,54 +24,13 @@ public class InGamePlayHandler
     private NoteContainer noteContainer;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public InGamePlayHandler(NoteContainer noteContainer, ProgressTimer progressTimer)
+    public InGamePlayer(NoteContainer noteContainer, ProgressTimer progressTimer)
     {
         inputEventFactory = new InputEventFactory(disposable);
         inputCommand = new InputCommand(inputEventFactory.InputEvent);
         this.noteContainer = noteContainer;
-
-        // タップ.
-        inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
-        {
-            // そのレーンの生きてるノーツだけ取得.
-            var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Active && n.Value.Lane == data.Lane).Value;
-
-            if (note == null)
-            {
-                // 生きてるノーツがない.
-                return;
-            }
-
-            if (!NoteTiming.CheckInRangeApplyTime(note, progressTimer.OnProgress.Value))
-            {
-                // 判定時間外.
-                return;
-            }
-
-            // 叩いた.
-            ApplyCommand(note, progressTimer.OnProgress.Value);
-        }).AddTo(disposable);
-
-        // 長押し.
-        inputCommand.Hold.SkipLatestValueOnSubscribe().Subscribe(data =>
-        {
-            // そのレーンの生きてるノーツだけ取得.
-            var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Lane == data.Lane && n.Value.Active).Value;
-
-            if (note == null)
-            {
-                // 生きてるノーツがない.
-                return;
-            }
-
-            if (!NoteTiming.CheckInRangeApplyTime(note, progressTimer.OnProgress.Value))
-            {
-                // 判定時間外.
-                return;
-            }
-
-            ApplyCommand(note, progressTimer.OnProgress.Value);
-        }).AddTo(disposable);
+        
+        InitInput(progressTimer);
 
         // 時間更新.
         progressTimer.OnProgress.Subscribe(progressTime =>
@@ -127,5 +86,51 @@ public class InGamePlayHandler
         }
 
         return passedNotes;
+    }
+
+    private void InitInput(ProgressTimer progressTimer)
+    {
+        // タップ.
+        inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
+        {
+            // そのレーンの生きてるノーツだけ取得.
+            var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Active && n.Value.Lane == data.Lane).Value;
+
+            if (note == null)
+            {
+                // 生きてるノーツがない.
+                return;
+            }
+
+            if (!NoteTiming.CheckInRangeApplyTime(note, progressTimer.OnProgress.Value))
+            {
+                // 判定時間外.
+                return;
+            }
+
+            // 叩いた.
+            ApplyCommand(note, progressTimer.OnProgress.Value);
+        }).AddTo(disposable);
+
+        // 長押し.
+        inputCommand.Hold.SkipLatestValueOnSubscribe().Subscribe(data =>
+        {
+            // そのレーンの生きてるノーツだけ取得.
+            var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Lane == data.Lane && n.Value.Active).Value;
+
+            if (note == null)
+            {
+                // 生きてるノーツがない.
+                return;
+            }
+
+            if (!NoteTiming.CheckInRangeApplyTime(note, progressTimer.OnProgress.Value))
+            {
+                // 判定時間外.
+                return;
+            }
+
+            ApplyCommand(note, progressTimer.OnProgress.Value);
+        }).AddTo(disposable);
     }
 }

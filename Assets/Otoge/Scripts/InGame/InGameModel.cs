@@ -12,11 +12,11 @@ public class InGameModel
     /// <summary>
     /// 入力適用イベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<ApplyNoteData> OnApplyNote => inGamePlayHandler.OnApplyNote;
+    public IReadOnlyReactiveProperty<ApplyNoteData> OnApplyNote => inGamePlayer.OnApplyNote;
     /// <summary>
     /// ノーツが通り過ぎたイベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<Note> OnPassNote => inGamePlayHandler.OnPassNote;
+    public IReadOnlyReactiveProperty<Note> OnPassNote => inGamePlayer.OnPassNote;
     /// <summary>
     /// 経過時間更新.
     /// </summary>
@@ -39,7 +39,7 @@ public class InGameModel
     /// <summary>
     /// インゲーム管理.
     /// </summary>
-    private InGamePlayHandler inGamePlayHandler;
+    private InGamePlayer inGamePlayer;
     /// <summary>
     /// タイマー.
     /// </summary>
@@ -59,17 +59,17 @@ public class InGameModel
         noteContainer = new NoteContainer();
         progressTimer = new ProgressTimer(disposable);
         combo = new Combo();
-        inGamePlayHandler = new InGamePlayHandler(noteContainer, progressTimer);
+        inGamePlayer = new InGamePlayer(noteContainer, progressTimer);
         
         // ノーツランク適用.
-        inGamePlayHandler.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
+        inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
             // コンボ加算.
             combo.Add();
         }).AddTo(disposable);
         
         // ノーツが通り過ぎた.
-        inGamePlayHandler.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(note =>
+        inGamePlayer.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(note =>
         {
             // コンボリセット.
             combo.Reset();

@@ -4,7 +4,7 @@ using UnityEngine;
 public class RankView : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI rankText;
+    private TextMeshPro rankText;
     
     /// <summary>
     /// ランクテキスト反映.

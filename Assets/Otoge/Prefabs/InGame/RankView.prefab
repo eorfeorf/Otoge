@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6319992b1f4e51498da8a3f967909e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rankText: {fileID: 0}
+  rankText: {fileID: 5059645612137804669}
 --- !u!23 &4261645682826092295
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -141,8 +141,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 6
-  m_fontSizeBase: 6
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

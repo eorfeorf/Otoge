@@ -17,10 +17,10 @@ public class NoteContainer
     /// </summary>
     public NoteContainer()
     {
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 50; ++i)
         {
             // 譜面情報からわかる.
-            var note = Create(NoteType.Tap, i, i%2, i/2f, i);
+            var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, i, i);
             notes.Add(note.UId, note);
         }   
     }

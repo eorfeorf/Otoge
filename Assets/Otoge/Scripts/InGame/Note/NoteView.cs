@@ -5,7 +5,14 @@
 /// </summary>
 public class NoteView
 {
-    public float Time;
-    public GameObject GameObject;
-    public RectTransform RectTransform;
+    public GameObject GameObject { get; private set; }
+    public Transform Transform { get; private set; }
+    public float Time { get; private set; }
+
+    public NoteView(Transform transform, float time)
+    {
+        Transform = transform;
+        GameObject = transform.gameObject;
+        Time = time;
+    }
 }

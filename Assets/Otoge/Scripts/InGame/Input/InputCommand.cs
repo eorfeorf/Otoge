@@ -18,6 +18,9 @@ public class InputCommand
     /// </summary>
     public IReadOnlyReactiveProperty<InputCommandData> Hold => hold;
     private readonly ReactiveProperty<InputCommandData> hold = new();
+    /// <summary>
+    /// リリース.
+    /// </summary>
     public IReadOnlyReactiveProperty<InputCommandData> HoldRelease => holdRelease;
     private readonly ReactiveProperty<InputCommandData> holdRelease = new();
 
