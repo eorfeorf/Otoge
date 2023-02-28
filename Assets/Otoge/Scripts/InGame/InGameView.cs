@@ -1,13 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class InGameView : MonoBehaviour
 {
-    [SerializeField] private Transform line;
-    [SerializeField] private Transform noteParent;
-    [SerializeField] private Transform notePrefab;
-    [SerializeField] private RankView rankView;
-    [SerializeField] private ComboView comboView;
+    [SerializeField]
+    private Transform line;
+    [SerializeField]
+    private Transform noteParent;
+    [SerializeField]
+    private Transform notePrefab;
+    [SerializeField]
+    private RankView rankView;
+    [SerializeField]
+    private ComboView comboView;
+    
+    [Header("エフェクト")]
+    [SerializeField]
+    private VisualEffect tapEffectPrefab;
 
     /// <summary>
     /// コンボ.
@@ -18,7 +28,17 @@ public class InGameView : MonoBehaviour
     /// </summary>
     public RankView RankView => rankView;
 
+    /// <summary>
+    /// UID,noteView
+    /// </summary>
     private readonly Dictionary<int, NoteView> noteViews = new();
+
+    /// <summary>
+    /// レーン位置.
+    /// </summary>
+    private List<Vector3> lanePositions = new();
+
+    private List<VisualEffect> vfxs = new();
 
     private void Start()
     {
@@ -28,20 +48,34 @@ public class InGameView : MonoBehaviour
     /// 初期化.
     /// </summary>
     /// <param name="notes"></param>
-    public void Initialize(ICollection<Note> notes)
+    public void Initialize(ViewInitializeData data)
     {
-        foreach (var note in notes)
+        // レーン位置計算.
+        for (int i = 0; i < data.MaxLaneNum; ++i)
+        {
+            var posX = i - data.MaxLaneNum / 2.0f + (notePrefab.transform.lossyScale.x/2f);
+            //var posX = i;
+            lanePositions.Add(new Vector3(posX, 0f, 0f));
+            Debug.Log($"[InGameView] lane:{i}, posX:{posX}");
+        }
+        
+        // レーン位置決定
+        foreach (var note in data.Notes)
         {
             // 必要な情報はNoteViewに詰め込む.
             var viewTransform = Instantiate(notePrefab, noteParent);
-            var view = new NoteView(viewTransform, note.Time);
+            var view = new NoteView(viewTransform, note.Time, note.Lane);
             
             // ノーツのX位置.
-            var posX = note.Lane - GameDefine.LANE_NUM / 2.0f;
-            posX *= 0.05f;
-            view.Transform.position = new Vector3(posX, 0f, 0f);
+            view.Transform.position = lanePositions[view.LaneIndex];
             noteViews.Add(note.UId, view);
-            Debug.Log($"[InGameView] posX:{posX}");
+        }
+        
+        // エフェクト
+        for (int i = 0; i < data.MaxLaneNum; ++i)
+        {
+            var vfx = Instantiate(tapEffectPrefab, lanePositions[i], Quaternion.identity, transform);
+            vfxs.Add(vfx);
         }
     }
 
@@ -70,6 +104,7 @@ public class InGameView : MonoBehaviour
     public void ApplyNote(Note note)
     {
         noteViews[note.UId].GameObject.SetActive(false);
+        vfxs[note.Lane].Play();
     }
 
     /// <summary>

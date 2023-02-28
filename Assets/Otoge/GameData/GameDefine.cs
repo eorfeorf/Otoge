@@ -18,7 +18,7 @@ public static class GameDefine
     public static int LANE_NUM => InputKeyToLane.Length;
 
     // ノーツスピード.
-    public static float NOTE_BASE_SPEED = 0.1f;
+    public static float NOTE_BASE_SPEED = 3f;
 
     public static readonly InputKeyToLaneData[] InputKeyToLane = {
         new()

@@ -5,6 +5,15 @@ using UnityEngine;
 using Unit = UniRx.Unit;
 
 /// <summary>
+/// Viewを初期化するのに必要なデータ.
+/// </summary>
+public class ViewInitializeData
+{
+    public ICollection<Note> Notes;
+    public int MaxLaneNum;
+}
+
+/// <summary>
 /// インゲームの進行を管理するクラス.
 /// </summary>
 public class InGameModel
@@ -54,7 +63,7 @@ public class InGameModel
     /// </summary>
     private bool isStart = false;
     
-    public InGameModel(Action<ICollection<Note>> onInitialize, CompositeDisposable disposable)
+    public InGameModel(Action<ViewInitializeData> onInitialize, CompositeDisposable disposable)
     {
         noteContainer = new NoteContainer();
         progressTimer = new ProgressTimer(disposable);
@@ -86,7 +95,11 @@ public class InGameModel
         
         // 初期化完了通知.
         Debug.Log("[GameModel] Initialized.");
-        onInitialize(noteContainer.Notes.Values);
+
+        var viewInitializeData = new ViewInitializeData();
+        viewInitializeData.Notes = noteContainer.Notes.Values;
+        viewInitializeData.MaxLaneNum = GameDefine.LANE_NUM;
+        onInitialize(viewInitializeData);
     }
 
     /// <summary>

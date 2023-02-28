@@ -10,7 +10,7 @@ public class InGamePresenter : MonoBehaviour
 
     private void Awake()
     {
-        model = new InGameModel(notes => view.Initialize(notes), disposable);
+        model = new InGameModel(data => view.Initialize(data), disposable);
     }
 
     private void Start()
