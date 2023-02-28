@@ -357,7 +357,7 @@ PrefabInstance:
     - target: {fileID: 4696200914187214849, guid: c06915a6d0e4ab14f9aa3f25f8931558,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1.57
       objectReference: {fileID: 0}
     - target: {fileID: 4696200914187214849, guid: c06915a6d0e4ab14f9aa3f25f8931558,
         type: 3}
@@ -493,7 +493,7 @@ PrefabInstance:
     - target: {fileID: 6003298181536998677, guid: 487c36f4984962f49b6cc3b717f3f2b6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6003298181536998677, guid: 487c36f4984962f49b6cc3b717f3f2b6,
         type: 3}
@@ -514,6 +514,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RankView
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062797559476825805, guid: 487c36f4984962f49b6cc3b717f3f2b6,
+        type: 3}
+      propertyPath: m_text
+      value: Rank
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
