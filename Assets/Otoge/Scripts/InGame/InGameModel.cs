@@ -16,7 +16,7 @@ public class InGameModel
     /// <summary>
     /// ノーツが通り過ぎたイベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<Note> OnPassNote => inGamePlayer.OnPassNote;
+    public IReadOnlyReactiveProperty<ApplyNoteData> OnPassNote => inGamePlayer.OnPassNote;
     /// <summary>
     /// 経過時間更新.
     /// </summary>

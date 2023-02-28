@@ -16,8 +16,8 @@ public class InGamePlayer
     /// <summary>
     /// ノーツが通り過ぎたイベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<Note> OnPassNote => onPassNote;
-    private ReactiveProperty<Note> onPassNote = new();
+    public IReadOnlyReactiveProperty<ApplyNoteData> OnPassNote => onPassNote;
+    private ReactiveProperty<ApplyNoteData> onPassNote = new();
 
     private InputEventFactory inputEventFactory;
     private InputCommand inputCommand;
@@ -41,7 +41,12 @@ public class InGamePlayer
             {
                 // 削除.
                 noteContainer.SetActive(note, false);
-                onPassNote.SetValueAndForceNotify(note);
+                var data = new ApplyNoteData()
+                {
+                    Note = note,
+                    Rank = GameDefine.JudgeRank.Miss,
+                };
+                onPassNote.SetValueAndForceNotify(data);
             }
         }).AddTo(disposable);
     }

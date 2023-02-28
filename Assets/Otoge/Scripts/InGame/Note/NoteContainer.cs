@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using TreeEditor;
-using UnityEngine;
-
 
 /// <summary>
 /// 読み込んだノーツの管理.
@@ -17,10 +14,11 @@ public class NoteContainer
     /// </summary>
     public NoteContainer()
     {
+        float startTime = 1f;
         for (int i = 0; i < 50; ++i)
         {
             // 譜面情報からわかる.
-            var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, i, i);
+            var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, i/3f+startTime, i);
             notes.Add(note.UId, note);
         }   
     }

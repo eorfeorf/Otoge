@@ -22,9 +22,10 @@ public class InGamePresenter : MonoBehaviour
         }).AddTo(this);
         
         // ノーツが通り過ぎた.
-        model.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(note =>
+        model.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
-            view.PassNote(note);
+            view.PassNote(data.Note);
+            view.RankView.ApplyRankText(data.Rank);
         }).AddTo(this);
         
         // ノーツランク反映.

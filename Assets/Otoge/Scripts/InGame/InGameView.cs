@@ -39,10 +39,9 @@ public class InGameView : MonoBehaviour
             // ノーツのX位置.
             var posX = note.Lane - GameDefine.LANE_NUM / 2.0f;
             posX *= 0.05f;
-            //posX *= 0.4f; // 調整
             view.Transform.position = new Vector3(posX, 0f, 0f);
-            Debug.Log($"[InGameView] posX:{posX}");
             noteViews.Add(note.UId, view);
+            Debug.Log($"[InGameView] posX:{posX}");
         }
     }
 

@@ -20,7 +20,7 @@ public static class GameDefine
     // ノーツスピード.
     public static float NOTE_BASE_SPEED = 0.1f;
 
-    public static InputKeyToLaneData[] InputKeyToLane = {
+    public static readonly InputKeyToLaneData[] InputKeyToLane = {
         new()
         {
             Key = KeyCode.S,
