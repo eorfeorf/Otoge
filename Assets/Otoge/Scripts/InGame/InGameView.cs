@@ -4,21 +4,37 @@ using UnityEngine.VFX;
 
 public class InGameView : MonoBehaviour
 {
+    /// <summary>
+    /// 判定ライン.
+    /// </summary>
     [SerializeField]
     private Transform line;
+    /// <summary>
+    /// ノーツの親オブジェクト.
+    /// </summary>
     [SerializeField]
     private Transform noteParent;
+    /// <summary>
+    /// ノーツPrefab.
+    /// </summary>
     [SerializeField]
     private Transform notePrefab;
+    /// <summary>
+    /// 判定View.
+    /// </summary>
     [SerializeField]
     private RankView rankView;
+    /// <summary>
+    /// コンボView.
+    /// </summary>
     [SerializeField]
     private ComboView comboView;
-    
-    [Header("エフェクト")]
+    /// <summary>
+    /// エフェクトView.
+    /// </summary>
     [SerializeField]
-    private VisualEffect tapEffectPrefab;
-
+    private EffectView effectView;
+    
     /// <summary>
     /// コンボ.
     /// </summary>
@@ -37,8 +53,6 @@ public class InGameView : MonoBehaviour
     /// レーン位置.
     /// </summary>
     private List<Vector3> lanePositions = new();
-
-    private List<VisualEffect> vfxs = new();
 
     private void Start()
     {
@@ -59,7 +73,7 @@ public class InGameView : MonoBehaviour
             Debug.Log($"[InGameView] lane:{i}, posX:{posX}");
         }
         
-        // レーン位置決定
+        // レーン位置決定.
         foreach (var note in data.Notes)
         {
             // 必要な情報はNoteViewに詰め込む.
@@ -71,12 +85,8 @@ public class InGameView : MonoBehaviour
             noteViews.Add(note.UId, view);
         }
         
-        // エフェクト
-        for (int i = 0; i < data.MaxLaneNum; ++i)
-        {
-            var vfx = Instantiate(tapEffectPrefab, lanePositions[i], Quaternion.identity, transform);
-            vfxs.Add(vfx);
-        }
+        // エフェクト.
+        effectView.Initialize(data.MaxLaneNum, lanePositions);
     }
 
     /// <summary>
@@ -104,7 +114,7 @@ public class InGameView : MonoBehaviour
     public void ApplyNote(Note note)
     {
         noteViews[note.UId].GameObject.SetActive(false);
-        vfxs[note.Lane].Play();
+        effectView.Play(note.Lane);
     }
 
     /// <summary>
