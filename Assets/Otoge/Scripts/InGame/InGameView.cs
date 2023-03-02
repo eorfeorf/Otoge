@@ -131,7 +131,7 @@ public class InGameView : MonoBehaviour
         // 小節線.
         var bpm = data.Bpm;
         var spb = GameDefine.SEC60 / bpm;
-        barTime = spb * 4; // 4拍分(1小節)
+        barTime = spb * GameDefine.BEAT_PER_BAR; 
         for (int i = 0; i < 100; ++i)
         {
             var viewTransform = Instantiate(barPrefab, barParent);

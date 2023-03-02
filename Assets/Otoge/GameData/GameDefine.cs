@@ -29,6 +29,9 @@ public static class GameDefine
 
     // TODO:譜面データから.
     public static int NOTE_NUM = 50;
+
+    // 4拍分(1小節)
+    public static int BEAT_PER_BAR = 4;
     
     /// <summary>
     /// 60秒(1分間が何秒か).
