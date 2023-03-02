@@ -14,12 +14,20 @@ public struct InputKeyToLaneData
 /// </summary>
 public static class GameDefine
 {
-    // レーン数.
+    /// <summary>
+    /// レーン数.
+    /// </summary>
     public static int LANE_NUM => InputKeyToLane.Length;
 
-    // ノーツスピード.
-    public static float NOTE_BASE_SPEED = 3f;
+    /// <summary>
+    /// ノーツスピード.
+    /// </summary>
+    public static float NOTE_BASE_SPEED = 5f;
 
+    /// <summary>
+    /// 入力とレーンの割り当て.
+    /// TODO:LaneIndexを動的に変更.
+    /// </summary>
     public static readonly InputKeyToLaneData[] InputKeyToLane = {
         new()
         {
@@ -56,14 +64,25 @@ public static class GameDefine
     // ノーツが通り過ぎて消えるまでの距離.
     public const float NOTE_VIEW_PASSED_DISABLE_TIME = 0.5f;
 
-    // 判定ランク.
+    /// <summary>
+    /// 判定ランク.
+    /// </summary>
     public enum JudgeRank
     {
         Perfect,
         Great,
         Good,
-        Miss
+        Miss,
+        Max,
     }
+
+    /// <summary>
+    /// ノーツ判定によるスコア.
+    /// </summary>
+    public static readonly int[] JudgeRankScore = new int[(int)JudgeRank.Max]
+    {
+        2, 1, 0, 0
+    };
 
     // 判定用フレームレート
     private const float TimingRate = 60f; // fps

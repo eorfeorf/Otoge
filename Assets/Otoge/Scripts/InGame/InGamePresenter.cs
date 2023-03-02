@@ -41,6 +41,12 @@ public class InGamePresenter : MonoBehaviour
             view.ComboView.ChangedCombo(count);
         }).AddTo(this);
         
+        // スコア変化.
+        model.OnChangedScore.SkipLatestValueOnSubscribe().Subscribe(score =>
+        {
+            view.ScoreView.ChangeScore(score);
+        }).AddTo(this);
+        
         // リセット
         model.OnReset.SkipLatestValueOnSubscribe().Subscribe(_ =>
         {

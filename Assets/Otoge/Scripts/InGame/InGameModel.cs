@@ -35,6 +35,10 @@ public class InGameModel
     /// </summary>
     public IReadOnlyReactiveProperty<int> OnChangedCombo => combo.Count;
     /// <summary>
+    /// コンボ数変化.
+    /// </summary>
+    public IReadOnlyReactiveProperty<int> OnChangedScore => score.Count;
+    /// <summary>
     /// リセット.
     /// </summary>
     public IReadOnlyReactiveProperty<Unit> OnReset => onReset;
@@ -57,6 +61,14 @@ public class InGameModel
     /// コンボ.
     /// </summary>
     private Combo combo;
+    /// <summary>
+    /// スコア.
+    /// </summary>
+    private Score score;
+    /// <summary>
+    /// スコア計算.
+    /// </summary>
+    private ScoreCalculator scoreCalculator;
 
     /// <summary>
     /// ゲームが開始されたか
@@ -67,14 +79,18 @@ public class InGameModel
     {
         noteContainer = new NoteContainer();
         progressTimer = new ProgressTimer(disposable);
-        combo = new Combo();
         inGamePlayer = new InGamePlayer(noteContainer, progressTimer);
+        combo = new Combo();
+        score = new Score();
+        scoreCalculator = new ScoreCalculator();
         
         // ノーツランク適用.
         inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
         {
             // コンボ加算.
             combo.Add();
+            // スコア加算.
+            score.Add(scoreCalculator.Calc(data));
         }).AddTo(disposable);
         
         // ノーツが通り過ぎた.

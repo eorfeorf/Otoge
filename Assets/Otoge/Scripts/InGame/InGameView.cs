@@ -33,6 +33,11 @@ public class InGameView : MonoBehaviour
     /// </summary>
     [SerializeField]
     private EffectView effectView;
+    /// <summary>
+    /// スコアView.
+    /// </summary>
+    [SerializeField]
+    private ScoreView scoreView;
     
     /// <summary>
     /// コンボ.
@@ -42,7 +47,11 @@ public class InGameView : MonoBehaviour
     /// 判定文字.
     /// </summary>
     public RankView RankView => rankView;
-
+    /// <summary>
+    /// スコア.
+    /// </summary>
+    public ScoreView ScoreView => scoreView;
+    
     /// <summary>
     /// UID,noteView
     /// </summary>
