@@ -1,6 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class BarView
+{
+    public Transform Transform { get; private set; }
+    public float Time { get; private set; }
+
+    public BarView(Transform transform, float time)
+    {
+        Transform = transform;
+        Time = time;
+    }
+}
+
 public class InGameView : MonoBehaviour
 {
     /// <summary>
@@ -14,10 +26,25 @@ public class InGameView : MonoBehaviour
     [SerializeField]
     private Transform noteParent;
     /// <summary>
+    /// 小節線の親オブジェクト.
+    /// </summary>
+    [SerializeField]
+    private Transform barParent;
+    
+    [Header("Prefab")]
+    /// <summary>
     /// ノーツPrefab.
     /// </summary>
     [SerializeField]
     private Transform notePrefab;
+    /// <summary>
+    /// 小節線Prefab
+    /// </summary>
+    [SerializeField]
+    private Transform barPrefab;
+    
+    
+    [Header("View")]
     /// <summary>
     /// 判定View.
     /// </summary>
@@ -38,7 +65,7 @@ public class InGameView : MonoBehaviour
     /// </summary>
     [SerializeField]
     private ScoreView scoreView;
-    
+
     /// <summary>
     /// コンボ.
     /// </summary>
@@ -56,12 +83,17 @@ public class InGameView : MonoBehaviour
     /// UID,noteView
     /// </summary>
     private readonly Dictionary<int, NoteView> noteViews = new();
-
     /// <summary>
     /// レーン位置.
     /// </summary>
     private List<Vector3> lanePositions = new();
+    /// <summary>
+    /// 小節線
+    /// </summary>
+    private readonly List<BarView> barViews = new();
 
+    private float barTime; // 1小節当たりの時間
+    
     private void Start()
     {
     }
@@ -95,6 +127,19 @@ public class InGameView : MonoBehaviour
         
         // エフェクト.
         effectView.Initialize(data.MaxLaneNum, lanePositions);
+        
+        // 小節線.
+        var bpm = data.Bpm;
+        var spb = GameDefine.SEC60 / bpm;
+        barTime = spb * 4; // 4拍分(1小節)
+        for (int i = 0; i < 100; ++i)
+        {
+            var viewTransform = Instantiate(barPrefab, barParent);
+            var view = new BarView(viewTransform, barTime * i);
+            
+            // 座標の位置を計算.
+            barViews.Add(view);
+        }
     }
 
     /// <summary>
@@ -103,6 +148,7 @@ public class InGameView : MonoBehaviour
     /// <param name="progressTime"></param>
     public void UpdateProgressTime(float progressTime)
     {
+        // ノーツの位置.
         foreach (var view in noteViews)
         {
             // ノーツ時間と経過時間を比較してノーツの位置を計算.
@@ -112,6 +158,16 @@ public class InGameView : MonoBehaviour
             var posY = sub * GameDefine.NOTE_BASE_SPEED;
             pos = new Vector3(pos.x, posY, pos.z);
             view.Value.Transform.position = pos;
+        }
+        
+        // 小節線.
+        foreach (var view in barViews)
+        {
+            var pos = view.Transform.position;
+            var sub = view.Time - progressTime;
+            var posY = sub * GameDefine.NOTE_BASE_SPEED;
+            pos = new Vector3(pos.x, posY, pos.z);
+            view.Transform.position = pos;
         }
     }
 

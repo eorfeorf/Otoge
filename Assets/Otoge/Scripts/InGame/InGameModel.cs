@@ -9,8 +9,25 @@ using Unit = UniRx.Unit;
 /// </summary>
 public class ViewInitializeData
 {
-    public ICollection<Note> Notes;
-    public int MaxLaneNum;
+    /// <summary>
+    /// 生成されたノーツ.
+    /// </summary>
+    public ICollection<Note> Notes { get; private set; }
+    /// <summary>
+    /// 最大レーン数.
+    /// </summary>
+    public int MaxLaneNum { get; private set; }
+    /// <summary>
+    /// BPM.
+    /// </summary>
+    public float Bpm { get; private set; }
+
+    public ViewInitializeData(ICollection<Note> notes, int maxLaneNum, float bpm)
+    {
+        Notes = notes;
+        MaxLaneNum = maxLaneNum;
+        Bpm = bpm;
+    }
 }
 
 /// <summary>
@@ -112,9 +129,7 @@ public class InGameModel
         // 初期化完了通知.
         Debug.Log("[GameModel] Initialized.");
 
-        var viewInitializeData = new ViewInitializeData();
-        viewInitializeData.Notes = noteContainer.Notes.Values;
-        viewInitializeData.MaxLaneNum = GameDefine.LANE_NUM;
+        var viewInitializeData = new ViewInitializeData(noteContainer.Notes.Values, GameDefine.LANE_NUM, GameDefine.BPM);
         onInitialize(viewInitializeData);
     }
 

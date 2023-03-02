@@ -14,11 +14,14 @@ public class NoteContainer
     /// </summary>
     public NoteContainer()
     {
-        float startTime = 1f;
-        for (int i = 0; i < 50; ++i)
+        float startTime = 0f;
+        var bpm = GameDefine.BPM;
+        var spb = GameDefine.SEC60 / bpm; // secondsPerBeat
+        for (int i = 0; i < GameDefine.NOTE_NUM; ++i)
         {
             // 譜面情報からわかる.
-            var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, i/3f+startTime, i);
+            var time = (i * spb) + startTime;
+            var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, time, i);
             notes.Add(note.UId, note);
         }   
     }

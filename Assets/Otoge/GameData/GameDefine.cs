@@ -24,6 +24,17 @@ public static class GameDefine
     /// </summary>
     public static float NOTE_BASE_SPEED = 5f;
 
+    // TODO:楽曲データから.
+    public static float BPM = 222;
+
+    // TODO:譜面データから.
+    public static int NOTE_NUM = 50;
+    
+    /// <summary>
+    /// 60秒(1分間が何秒か).
+    /// </summary>
+    public static float SEC60 = 60;
+    
     /// <summary>
     /// 入力とレーンの割り当て.
     /// TODO:LaneIndexを動的に変更.
