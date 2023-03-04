@@ -36,14 +36,12 @@ public class InputCommand
             // すでに触った.
             if (inputEventMap.ContainsKey(inputEventData.PointerId))
             {
-                // ホールド判定にするか？
-                // 初回からホールド判定のほうがいい気もする？.
-                // ホールドの開始ノーツは通常タップ処理で取るのもアリ.
-                var holdData = new InputCommandData()
-                {
-                    Lane = inputEventData.PointerId
-                };
-                hold.SetValueAndForceNotify(holdData);
+                // TODO:ホールドノーツ考慮.
+                // var holdData = new InputCommandData()
+                // {
+                //     Lane = inputEventData.PointerId
+                // };
+                // hold.SetValueAndForceNotify(holdData);
                 return;
             }
             
