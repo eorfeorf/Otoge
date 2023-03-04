@@ -9,9 +9,9 @@ public class ScoreCalculator
     /// 最終的なスコア計算.
     /// </summary>
     /// <returns></returns>
-    public int Calc(ApplyNoteData data)
+    public int Calc(GameDefine.JudgeRank rank)
     {
-        var score = GameDefine.JudgeRankScore[(int) data.Rank];
+        var score = GameDefine.JudgeRankScore[(int) rank];
         return score;
     }
 }

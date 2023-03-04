@@ -107,7 +107,7 @@ public class InGameModel
             // コンボ加算.
             combo.Add();
             // スコア加算.
-            score.Add(scoreCalculator.Calc(data));
+            score.Add(scoreCalculator.Calc(data.Rank));
         }).AddTo(disposable);
         
         // ノーツが通り過ぎた.
