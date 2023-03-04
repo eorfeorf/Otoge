@@ -10,14 +10,14 @@ public class InGamePlayer
     /// <summary>
     /// 入力適用イベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<ApplyNoteData> OnApplyNote => onApplyNote;
-    private readonly ReactiveProperty<ApplyNoteData> onApplyNote = new();
+    public IReadOnlyReactiveProperty<NoteApplyData> OnApplyNote => onApplyNote;
+    private readonly ReactiveProperty<NoteApplyData> onApplyNote = new();
 
     /// <summary>
     /// ノーツが通り過ぎたイベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<ApplyNoteData> OnPassNote => onPassNote;
-    private ReactiveProperty<ApplyNoteData> onPassNote = new();
+    public IReadOnlyReactiveProperty<NoteApplyData> OnPassNote => onPassNote;
+    private ReactiveProperty<NoteApplyData> onPassNote = new();
 
     private InputEventFactory inputEventFactory;
     private InputCommand inputCommand;
@@ -41,7 +41,7 @@ public class InGamePlayer
             {
                 // 削除.
                 noteContainer.SetActive(note, false);
-                var data = new ApplyNoteData()
+                var data = new NoteApplyData()
                 {
                     Note = note,
                     Rank = GameDefine.JudgeRank.Miss,
@@ -61,7 +61,7 @@ public class InGamePlayer
         // 叩いた.
         var rank = NoteTiming.CheckRank(note, progressTime);
         noteContainer.SetActive(note, false);
-        var data = new ApplyNoteData()
+        var data = new NoteApplyData()
         {
             Note = note,
             Rank = rank,

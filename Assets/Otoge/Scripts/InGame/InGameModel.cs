@@ -38,11 +38,11 @@ public class InGameModel
     /// <summary>
     /// 入力適用イベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<ApplyNoteData> OnApplyNote => inGamePlayer.OnApplyNote;
+    public IReadOnlyReactiveProperty<NoteApplyData> OnApplyNote => inGamePlayer.OnApplyNote;
     /// <summary>
     /// ノーツが通り過ぎたイベント.
     /// </summary>
-    public IReadOnlyReactiveProperty<ApplyNoteData> OnPassNote => inGamePlayer.OnPassNote;
+    public IReadOnlyReactiveProperty<NoteApplyData> OnPassNote => inGamePlayer.OnPassNote;
     /// <summary>
     /// 経過時間更新.
     /// </summary>
