@@ -9,6 +9,6 @@ public class InputEventFactory
     
     public InputEventFactory(CompositeDisposable disposable)
     {
-        InputEvent = new InputEventPlayerPC(disposable);
+        //InputEvent = new InputEventPlayerPC(disposable);
     }
 }
