@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Otoge.Scripts.InGame.Domain;
 using UniRx;
 using UnityEngine;
 using Unit = UniRx.Unit;
@@ -62,10 +63,6 @@ public class InGameModel
     private readonly ReactiveProperty<Unit> onReset = new ReactiveProperty<Unit>();
     
 
-    /// <summary>
-    /// ノーツ管理.
-    /// </summary>
-    private NoteContainer noteContainer;
     /// <summary>
     /// インゲーム管理.
     /// </summary>
