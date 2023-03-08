@@ -3,6 +3,6 @@
 /// </summary>
 public class NoteApplyData
 {
-    public Note Note;
+    public NoteData NoteData;
     public GameDefine.JudgeRank Rank;
 }

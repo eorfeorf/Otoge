@@ -3,16 +3,16 @@ using System.Collections.Generic;
 /// <summary>
 /// 読み込んだノーツの管理.
 /// </summary>
-public class NoteContainer
+public class NoteDataContainer
 {
-    public IDictionary<int, Note> Notes => notes;
-    private readonly Dictionary<int, Note> notes = new();
+    public IDictionary<int, NoteData> Notes => notes;
+    private readonly Dictionary<int, NoteData> notes = new();
     
     /// <summary>
     /// ノーツデータの生成.
     /// TODO:譜面からデータに変換.
     /// </summary>
-    public NoteContainer()
+    public NoteDataContainer()
     {
         float startTime = 0f;
         var bpm = GameDefine.BPM;
@@ -35,9 +35,9 @@ public class NoteContainer
     /// <param name="time"></param>
     /// <param name="active"></param>
     /// <returns></returns>
-    private Note Create(NoteType type, int pairId, int lane, float time, int uid)
+    private NoteData Create(NoteType type, int pairId, int lane, float time, int uid)
     {
-        var note = new Note
+        var note = new NoteData
         {
             Type = type,
             Active = true,

@@ -8,15 +8,15 @@ public static class NoteTiming
     /// <summary>
     /// そのノーツが判定できる時間内か？.
     /// </summary>
-    /// <param name="note"></param>
+    /// <param name="noteData"></param>
     /// <returns></returns>
-    public static bool CheckInRangeApplyTime(Note note, float progressTime)
+    public static bool CheckInRangeApplyTime(NoteType type, float noteTime, float progressTime)
     {
-        switch (note.Type)
+        switch (type)
         {
             case NoteType.Tap:
             {
-                var time = note.Time;
+                var time = noteTime;
                 var early = time + -GameDefine.TimingGood;
                 var late = time + GameDefine.TimingGood;
                 if (early <= progressTime && progressTime <= late)
@@ -31,7 +31,7 @@ public static class NoteTiming
             {
                 // ノーツがアクティブかどうか気にする必要がありそう.
                 // NoteじゃなくてNoteBaseでもらった方がよいのでは.
-                var time = note.Time;
+                var time = noteTime;
                 var early = time + -GameDefine.TimingGood;
                 var late = time + GameDefine.TimingGood;
                 if (early <= progressTime && progressTime <= late)
@@ -47,7 +47,7 @@ public static class NoteTiming
             {
                 // ノーツがアクティブかどうか気にする必要がありそう.
                 // NoteじゃなくてNoteBaseでもらった方がよいのでは.
-                var time = note.Time;
+                var time = noteTime;
                 var early = time + -GameDefine.TimingGood;
                 var late = time + GameDefine.TimingGood;
                 if (early <= progressTime && progressTime <= late)
@@ -70,11 +70,11 @@ public static class NoteTiming
     /// <summary>
     /// 判定ランク.
     /// </summary>
-    /// <param name="note"></param>
+    /// <param name="noteData"></param>
     /// <returns></returns>
-    public static GameDefine.JudgeRank CheckRank(Note note, float progressTime)
+    public static GameDefine.JudgeRank CheckRank(float noteTime, float progressTime)
     {
-        var sub = note.Time - progressTime;
+        var sub = noteTime - progressTime;
         sub = Mathf.Abs(sub);
 
         switch (sub)
@@ -87,7 +87,6 @@ public static class NoteTiming
                 return GameDefine.JudgeRank.Good;
             default:
                 // ここは来ないはず.
-                Debug.LogError($"[GameModel] Invalid rank. Note:{note.PairId},{note.Time}, Sub:{sub}");
                 return GameDefine.JudgeRank.Miss;
         }
     }

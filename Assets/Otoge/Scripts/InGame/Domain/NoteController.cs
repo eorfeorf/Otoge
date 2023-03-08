@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Otoge.Scripts.InGame.Application
 {
     /// <summary>
@@ -5,19 +7,21 @@ namespace Otoge.Scripts.InGame.Application
     /// </summary>
     public class NoteController
     {
-        public NoteController(NoteContainer noteContainer)
+        private IList<NoteData> notes;
+        
+        public NoteController(IList<NoteData> notes)
         {
-            
+            this.notes = notes;
         }
         
         /// <summary>
         /// アクティブを設定.
         /// </summary>
-        /// <param name="note"></param>
+        /// <param name="noteData"></param>
         /// <param name="isActive"></param>
-        public void SetActive(Note note, bool isActive)
+        public void SetActive(NoteData noteData, bool isActive)
         {
-            note.Active = isActive;
+            noteData.Active = isActive;
         }
 
         /// <summary>
@@ -28,7 +32,7 @@ namespace Otoge.Scripts.InGame.Application
         {
             foreach (var note in notes)
             {
-                note.Value.Active = isActive;
+                note.Active = isActive;
             }
         }
     }
