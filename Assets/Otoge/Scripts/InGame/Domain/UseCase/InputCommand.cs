@@ -44,7 +44,7 @@ public class InputCommand
                 // hold.SetValueAndForceNotify(holdData);
                 return;
             }
-            
+
             inputEventMap.Add(inputEventData.PointerId, inputEventData);
             
             // タップ.
