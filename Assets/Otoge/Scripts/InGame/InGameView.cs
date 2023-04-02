@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Otoge.Scripts2.Domain.Entities;
 using UnityEngine;
 
 public class BarView

@@ -1,4 +1,4 @@
-using UnityEngine;
+using Otoge.Scripts2.Domain.Entities;
 
 /// <summary>
 /// スコア計算.

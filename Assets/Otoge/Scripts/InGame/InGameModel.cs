@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Otoge.Scripts2.Domain.Entities;
 using UniRx;
 using UnityEngine;
 using Unit = UniRx.Unit;

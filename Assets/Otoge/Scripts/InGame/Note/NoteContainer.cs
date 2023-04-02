@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Otoge.Scripts2.Domain.Entities;
 
 /// <summary>
 /// 読み込んだノーツの管理.

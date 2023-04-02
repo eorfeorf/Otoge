@@ -1,3 +1,4 @@
+using Otoge.Scripts2.Domain.Entities;
 using TMPro;
 using UnityEngine;
 

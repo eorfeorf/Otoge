@@ -20,12 +20,12 @@ public class EffectView : MonoBehaviour
     /// <param name="lanePositions"></param>
     public void Initialize(int maxLaneNum, List<Vector3> lanePositions)
     {
-        // エフェクト
-        for (int i = 0; i < maxLaneNum; ++i)
-        {
-            var vfx = Instantiate(tapEffectPrefab, lanePositions[i], Quaternion.identity, transform);
-            tapEffects.Add(vfx);
-        }
+        // // エフェクト
+        // for (int i = 0; i < maxLaneNum; ++i)
+        // {
+        //     var vfx = Instantiate(tapEffectPrefab, lanePositions[i], Quaternion.identity, transform);
+        //     tapEffects.Add(vfx);
+        // }
     }
 
     /// <summary>
