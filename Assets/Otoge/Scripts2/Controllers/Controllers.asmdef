@@ -1,11 +1,7 @@
 {
-    "name": "Adapters",
+    "name": "Controllers",
     "rootNamespace": "",
-    "references": [
-        "UniRx",
-        "Unity.TextMeshPro",
-        "Domain"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

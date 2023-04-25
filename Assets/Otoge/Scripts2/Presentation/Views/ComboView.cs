@@ -19,5 +19,3 @@ namespace Otoge.Scripts2.Presentation.Views
         }
     }
 }
-
-View と ViewModel に切り離す
