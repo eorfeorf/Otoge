@@ -1,5 +1,4 @@
-﻿using Otoge.Scripts2.Domain.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 判定周り

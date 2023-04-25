@@ -1,5 +1,4 @@
-﻿using Otoge.Scripts2.Domain.Entities;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 /// <summary>
