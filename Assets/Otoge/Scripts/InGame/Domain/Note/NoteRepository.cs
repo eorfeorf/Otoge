@@ -6,7 +6,7 @@ public class NoteRepository : INoteRepository
     /// <summary>
     /// ノーツ.
     /// </summary>
-    public List<NoteData> Notes { get; private set; }
+    public IList<NoteData> Notes { get; private set; }
 
     public NoteRepository(List<NoteData> notes)
     {

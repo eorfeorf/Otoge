@@ -1,7 +1,10 @@
 {
-    "name": "Entities",
+    "name": "Data",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "UniRx",
+        "Domain"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

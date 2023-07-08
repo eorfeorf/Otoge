@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Otoge.Scripts.InGame.Presentation
 {
-    public class Presenter : IPresentation
+    public class NotePresenter : INotePresentation
     {
         /// <summary>
         /// 経過時間更新.

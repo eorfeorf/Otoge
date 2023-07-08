@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Otoge.Scripts.InGame.Application;
 using Otoge.Scripts.InGame.Application.Interface;
+using Otoge.Scripts.InGame.Domain;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;

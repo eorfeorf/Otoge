@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class RankUseCase : MonoBehaviour
+public class RankUseCase
 {
-    public string GetRank()
+    public string GetRank(GameDefine.JudgeRank rank)
     {
-        var rank = ();
-        
         switch (rank)
         {
             case GameDefine.JudgeRank.Perfect:
