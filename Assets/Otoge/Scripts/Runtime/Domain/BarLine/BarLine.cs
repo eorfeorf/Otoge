@@ -1,6 +1,6 @@
 ﻿namespace Otoge.Scripts.InGame.Domain
 {
-    public class Bar
+    public class BarLine
     {
         /// <summary>
         /// BPM.

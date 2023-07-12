@@ -7,7 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Otoge.Scripts.InGame.Presentation
 {
-    public class BarPresenter
+    public class BarLinePresenter
     {
         /// <summary>
         /// 小節線
@@ -16,16 +16,16 @@ namespace Otoge.Scripts.InGame.Presentation
 
         private ProgressTimer _progressTimer;
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
-        private Bar _bar;
+        private BarLine _barLine;
         
-        public BarPresenter(LifeCycle lifeCycle, BarView.Factory factory, Transform parent, Bar bar, ProgressTimer progressTimer)
+        public BarLinePresenter(LifeCycle lifeCycle, BarView.Factory factory, Transform parent, BarLine barLine, ProgressTimer progressTimer)
         {
-            _bar = bar;
+            _barLine = barLine;
             
             // View生成.
-            var oneBeatTime = GameDefine.SEC60 / _bar.Bpm;
+            var oneBeatTime = GameDefine.SEC60 / _barLine.Bpm;
             var oneBarTime = oneBeatTime * GameDefine.BEAT_PER_BAR;
-            var count = (int)(bar.BgmTime / oneBarTime) + 1;
+            var count = (int)(barLine.BgmTime / oneBarTime) + 1;
             
             for (int i = 0; i < count; ++i)
             {
@@ -47,7 +47,7 @@ namespace Otoge.Scripts.InGame.Presentation
         private void Update(BarView view, int index, float progressTime)
         {
             // BPMからバーの時間を計算.
-            var oneBeatTime = GameDefine.SEC60 / _bar.Bpm;
+            var oneBeatTime = GameDefine.SEC60 / _barLine.Bpm;
             var oneBarTime = oneBeatTime * GameDefine.BEAT_PER_BAR;
             var time = oneBarTime * index;
 

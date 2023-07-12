@@ -3,7 +3,7 @@
 /// <summary>
 /// ノーツデータ(共有データ).
 /// </summary>
-public class Note
+public partial class Note
 {
     public NoteType Type;
     public bool Active;
