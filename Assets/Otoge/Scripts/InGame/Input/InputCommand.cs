@@ -21,8 +21,8 @@ public class InputCommand
     /// <summary>
     /// リリース.
     /// </summary>
-    public IReadOnlyReactiveProperty<InputCommandData> HoldRelease => holdRelease;
-    private readonly ReactiveProperty<InputCommandData> holdRelease = new();
+    public IReadOnlyReactiveProperty<InputCommandData> Release => _release;
+    private readonly ReactiveProperty<InputCommandData> _release = new();
 
     private readonly CompositeDisposable disposable = new();
     
@@ -70,7 +70,7 @@ public class InputCommand
                 {
                     Lane = inputEventData.PointerId
                 };
-                holdRelease.SetValueAndForceNotify(holdReleaseData);
+                _release.SetValueAndForceNotify(holdReleaseData);
             }
         }).AddTo(disposable);
     }

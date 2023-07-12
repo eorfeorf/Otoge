@@ -1,9 +1,10 @@
 {
-    "name": "Input",
-    "rootNamespace": "",
+    "name": "Presentation",
+    "rootNamespace": "Otoge.Presentation",
     "references": [
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
-        "GUID:b74149ffcb74c7a4bb6b95389903340c"
+        "UniRx",
+        "Unity.TextMeshPro",
+        "Domain"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

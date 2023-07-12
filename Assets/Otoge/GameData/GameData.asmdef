@@ -1,7 +1,9 @@
 {
-    "name": "GameData",
-    "rootNamespace": "",
-    "references": [],
+    "name": "Domain",
+    "rootNamespace": "Otoge.Domain",
+    "references": [
+        "UniRx"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

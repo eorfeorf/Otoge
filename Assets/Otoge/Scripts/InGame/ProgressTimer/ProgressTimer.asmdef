@@ -1,8 +1,9 @@
 {
-    "name": "ProgressTimer",
-    "rootNamespace": "",
+    "name": "Application",
+    "rootNamespace": "Otoge.Application",
     "references": [
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+        "UniRx",
+        "Domain"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

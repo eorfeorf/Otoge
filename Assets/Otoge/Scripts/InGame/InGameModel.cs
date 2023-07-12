@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Otoge.Scripts.InGame.Application;
+using Otoge.Scripts.InGame.Application.Interface;
+using Otoge.Scripts.InGame.Domain;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using Unit = UniRx.Unit;
 
 /// <summary>
@@ -17,16 +21,11 @@ public class ViewInitializeData
     /// 最大レーン数.
     /// </summary>
     public int MaxLaneNum { get; private set; }
-    /// <summary>
-    /// BPM.
-    /// </summary>
-    public float Bpm { get; private set; }
 
-    public ViewInitializeData(ICollection<Note> notes, int maxLaneNum, float bpm)
+    public ViewInitializeData(ICollection<Note> notes, int maxLaneNum)
     {
         Notes = notes;
         MaxLaneNum = maxLaneNum;
-        Bpm = bpm;
     }
 }
 
@@ -63,10 +62,6 @@ public class InGameModel
     
 
     /// <summary>
-    /// ノーツ管理.
-    /// </summary>
-    private NoteContainer noteContainer;
-    /// <summary>
     /// インゲーム管理.
     /// </summary>
     private InGamePlayer inGamePlayer;
@@ -87,19 +82,22 @@ public class InGameModel
     /// </summary>
     private ScoreCalculator scoreCalculator;
 
+    private INoteRepository noteRepository;
+    private NoteController noteController;
+
     /// <summary>
     /// ゲームが開始されたか
     /// </summary>
     private bool isStart = false;
     
-    public InGameModel(Action<ViewInitializeData> onInitialize, CompositeDisposable disposable)
+    public InGameModel(Action<ViewInitializeData> onInitialize, CompositeDisposable disposable, INoteRepository noteRepository)
     {
-        noteContainer = new NoteContainer();
         progressTimer = new ProgressTimer(disposable);
-        inGamePlayer = new InGamePlayer(noteContainer, progressTimer);
+        inGamePlayer = new InGamePlayer(noteRepository, progressTimer);
         combo = new Combo();
         score = new Score();
         scoreCalculator = new ScoreCalculator();
+        noteController = new NoteController(noteRepository.Notes);
         
         // ノーツランク適用.
         inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
@@ -129,7 +127,7 @@ public class InGameModel
         // 初期化完了通知.
         Debug.Log("[GameModel] Initialized.");
 
-        var viewInitializeData = new ViewInitializeData(noteContainer.Notes.Values, GameDefine.LANE_NUM, GameDefine.BPM);
+        var viewInitializeData = new ViewInitializeData(noteRepository.Notes, GameDefine.LANE_NUM);
         onInitialize(viewInitializeData);
     }
 
@@ -148,7 +146,7 @@ public class InGameModel
     public void Reset()
     {
         progressTimer.Start();
-        noteContainer.SetActiveAll(true);
+        noteController.SetActiveAll(true);
         onReset.SetValueAndForceNotify(Unit.Default);
     }
 }
