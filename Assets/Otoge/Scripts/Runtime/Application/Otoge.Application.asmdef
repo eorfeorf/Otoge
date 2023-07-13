@@ -1,7 +1,10 @@
 {
     "name": "Otoge.Application",
     "rootNamespace": "Otoge.Application",
-    "references": [],
+    "references": [
+        "VContainer",
+        "Otoge.Domain"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

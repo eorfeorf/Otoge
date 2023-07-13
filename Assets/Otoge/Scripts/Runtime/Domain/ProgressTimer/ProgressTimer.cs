@@ -8,31 +8,32 @@ namespace Otoge.Domain
         /// <summary>
         /// 経過時間更新.
         /// </summary>
-        public IReadOnlyReactiveProperty<float> OnProgress => onProgress;
+        public IReadOnlyReactiveProperty<float> OnProgress => _onProgress;
 
-        private readonly ReactiveProperty<float> onProgress = new();
+        private readonly ReactiveProperty<float> _onProgress = new();
 
-        private bool isStart = false;
-        private float startTime = 0;
+        private bool _isStart = false;
+        private float _startTime = 0;
 
         public ProgressTimer(CompositeDisposable disposable)
         {
+            // TODO:音のシークにする.
             Observable.EveryUpdate().Subscribe(_ =>
             {
-                if (!isStart)
+                if (!_isStart)
                 {
                     return;
                 }
 
-                var progressTime = Time.time - startTime;
-                onProgress.Value = progressTime;
+                var progressTime = Time.time - _startTime;
+                _onProgress.Value = progressTime;
             }).AddTo(disposable);
         }
 
         public void Start()
         {
-            isStart = true;
-            startTime = Time.time;
+            _isStart = true;
+            _startTime = Time.time;
         }
     }
 }

@@ -21,16 +21,15 @@ namespace Otoge.Domain
         public IReadOnlyReactiveProperty<NoteApplyData> OnPassNote => onPassNote;
         private ReactiveProperty<NoteApplyData> onPassNote = new();
 
-        private InputEventFactory inputEventFactory;
-        private InputCommand inputCommand;
-        private NoteContainer noteContainer;
-        private CompositeDisposable disposable = new CompositeDisposable();
+        private readonly InputCommand _inputCommand;
+        private readonly NoteContainer _noteContainer;
+        private readonly LifeCycle _lifeCycle;
 
-        public InGamePlayer(NoteContainer noteContainer, ProgressTimer progressTimer)
+        public InGamePlayer(NoteContainer noteContainer, ProgressTimer progressTimer, InputCommand inputCommand, LifeCycle lifeCycle)
         {
-            inputEventFactory = new InputEventFactory(disposable);
-            inputCommand = new InputCommand(inputEventFactory.InputEvent);
-            this.noteContainer = noteContainer;
+            _lifeCycle = lifeCycle;
+            _inputCommand = inputCommand;
+            _noteContainer = noteContainer;
         
             InitInput(progressTimer);
 
@@ -50,7 +49,7 @@ namespace Otoge.Domain
                     };
                     onPassNote.SetValueAndForceNotify(data);
                 }
-            }).AddTo(disposable);
+            }).AddTo(_lifeCycle.CompositeDisposable);
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace Otoge.Domain
         {
             // 叩いた.
             var rank = NoteTiming.CheckRank(note, progressTime);
-            noteContainer.SetActive(note, false);
+            _noteContainer.SetActive(note, false);
             var data = new NoteApplyData()
             {
                 Note = note,
@@ -98,10 +97,10 @@ namespace Otoge.Domain
         private void InitInput(ProgressTimer progressTimer)
         {
             // タップ.
-            inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
+            _inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
             {
                 // そのレーンの生きてるノーツだけ取得.
-                var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Active && n.Value.Lane == data.Lane).Value;
+                var note = _noteContainer.Notes.FirstOrDefault(n => n.Value.Active && n.Value.Lane == data.Lane).Value;
 
                 if (note == null)
                 {
@@ -117,13 +116,13 @@ namespace Otoge.Domain
 
                 // 叩いた.
                 ApplyCommand(note, progressTimer.OnProgress.Value);
-            }).AddTo(disposable);
+            }).AddTo(_lifeCycle.CompositeDisposable);
 
             // 長押し.
-            inputCommand.Hold.SkipLatestValueOnSubscribe().Subscribe(data =>
+            _inputCommand.Hold.SkipLatestValueOnSubscribe().Subscribe(data =>
             {
                 // そのレーンの生きてるノーツだけ取得.
-                var note = noteContainer.Notes.FirstOrDefault(n => n.Value.Lane == data.Lane && n.Value.Active).Value;
+                var note = _noteContainer.Notes.FirstOrDefault(n => n.Value.Lane == data.Lane && n.Value.Active).Value;
 
                 if (note == null)
                 {
@@ -138,7 +137,7 @@ namespace Otoge.Domain
                 }
 
                 ApplyCommand(note, progressTimer.OnProgress.Value);
-            }).AddTo(disposable);
+            }).AddTo(_lifeCycle.CompositeDisposable);
         }
     }
 }

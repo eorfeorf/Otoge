@@ -1,7 +1,7 @@
 ﻿using System;
 using UniRx;
 
-namespace Otoge.Scripts.InGame.Domain
+namespace Otoge.Domain
 {
     public class LifeCycle : IDisposable
     {

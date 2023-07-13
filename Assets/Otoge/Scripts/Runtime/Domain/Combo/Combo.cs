@@ -4,16 +4,28 @@ namespace Otoge.Domain
 {
     public class Combo
     {
-        public IReactiveProperty<int> Count => count;
-        private ReactiveProperty<int> count = new();
-    
+        /// <summary>
+        /// 値が変更された.
+        /// </summary>
+        public IReactiveProperty<int> Value => _value;
+        private readonly ReactiveProperty<int> _value = new();
+
+        public Combo(InGamePlayer inGamePlayer, LifeCycle lifeCycle)
+        {
+            // ノーツ適用.
+            inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
+            {
+                Add();
+            }).AddTo(lifeCycle.CompositeDisposable);
+        }
+        
         /// <summary>
         /// コンボ追加
         /// </summary>
         /// <param name="add"></param>
-        public void Add(int add = 1)
+        private void Add(int add = 1)
         {
-            count.Value += add;
+            _value.Value += add;
         }
 
         /// <summary>
@@ -21,7 +33,7 @@ namespace Otoge.Domain
         /// </summary>
         public void Reset()
         {
-            count.Value = 0;
+            _value.Value = 0;
         }
     }
 }

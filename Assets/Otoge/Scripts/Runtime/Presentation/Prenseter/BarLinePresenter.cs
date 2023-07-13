@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Otoge.Domain;
-using Otoge.Scripts.InGame.Domain;
 using UniRx;
 using UnityEngine;
 
