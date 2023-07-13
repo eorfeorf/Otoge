@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Otoge.Domain;
 using Otoge.Scripts.InGame.Domain;
-using Otoge.Scripts.InGame.Presentation.View;
 using UniRx;
 using UnityEngine;
 
@@ -17,16 +16,17 @@ namespace Otoge.Presentation
         private ProgressTimer _progressTimer;
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         private BarLine _barLine;
-        
-        public BarLinePresenter(LifeCycle lifeCycle, BarView.Factory factory, Transform parent, BarLine barLine, ProgressTimer progressTimer)
+
+        public BarLinePresenter(LifeCycle lifeCycle, BarView.Factory factory, Transform parent, BarLine barLine,
+            ProgressTimer progressTimer)
         {
             _barLine = barLine;
-            
+
             // View生成.
             var oneBeatTime = GameDefine.SEC60 / _barLine.Bpm;
             var oneBarTime = oneBeatTime * GameDefine.BEAT_PER_BAR;
-            var count = (int)(barLine.BgmTime / oneBarTime) + 1;
-            
+            var count = (int) (barLine.BgmTime / oneBarTime) + 1;
+
             for (int i = 0; i < count; ++i)
             {
                 var view = factory.Create(parent);
@@ -53,11 +53,10 @@ namespace Otoge.Presentation
 
             var sub = time - progressTime;
             var posY = sub * GameDefine.NOTE_BASE_SPEED;
-            
+
             var pos = view.transform.position;
             pos = new Vector3(pos.x, posY, pos.z);
             view.transform.position = pos;
         }
-        
     }
 }

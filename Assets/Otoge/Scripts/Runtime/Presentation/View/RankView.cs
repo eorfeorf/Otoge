@@ -1,31 +1,34 @@
 using TMPro;
 using UnityEngine;
 
-public class RankView : MonoBehaviour
+namespace Otoge.Presentation
 {
-    [SerializeField]
-    private TextMeshPro rankText;
-    
-    /// <summary>
-    /// ランクテキスト反映.
-    /// </summary>
-    /// <param name="rank"></param>
-    public void ApplyRankText(GameDefine.JudgeRank rank)
+    public class RankView : MonoBehaviour
     {
-        switch (rank)
+        [SerializeField]
+        private TextMeshPro rankText;
+
+        /// <summary>
+        /// ランクテキスト反映.
+        /// </summary>
+        /// <param name="rank"></param>
+        public void ApplyRankText(GameDefine.JudgeRank rank)
         {
-            case GameDefine.JudgeRank.Perfect:
-                rankText.text = GameText.RANK_PERFECT;
-                break;
-            case GameDefine.JudgeRank.Great:
-                rankText.text = GameText.RANK_GREAT;
-                break;
-            case GameDefine.JudgeRank.Good:
-                rankText.text = GameText.RANK_GOOD;
-                break;
-            case GameDefine.JudgeRank.Miss:
-                rankText.text = GameText.RANK_MISS;
-                break;
+            switch (rank)
+            {
+                case GameDefine.JudgeRank.Perfect:
+                    rankText.text = GameText.RANK_PERFECT;
+                    break;
+                case GameDefine.JudgeRank.Great:
+                    rankText.text = GameText.RANK_GREAT;
+                    break;
+                case GameDefine.JudgeRank.Good:
+                    rankText.text = GameText.RANK_GOOD;
+                    break;
+                case GameDefine.JudgeRank.Miss:
+                    rankText.text = GameText.RANK_MISS;
+                    break;
+            }
         }
     }
 }

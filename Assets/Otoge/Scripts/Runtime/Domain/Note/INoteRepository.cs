@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 
-namespace Otoge.Scripts.InGame.Application.Interface
+namespace Otoge.Domain
 {
     public interface INoteRepository
     {
-        public IList<global::Note> Notes { get; }
+        public IList<Note> Notes { get; }
     }
 }

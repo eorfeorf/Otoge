@@ -1,42 +1,38 @@
 using UniRx;
 using UnityEngine;
 
-// public interface IProgressTimer
-// {
-//     /// <summary>
-//     /// 経過時間更新.
-//     /// </summary>
-//     public IReadOnlyReactiveProperty<float> OnProgress { get; }
-// }
-
-public class ProgressTimer
+namespace Otoge.Domain
 {
-    /// <summary>
-    /// 経過時間更新.
-    /// </summary>
-    public IReadOnlyReactiveProperty<float> OnProgress => onProgress;
-    private readonly ReactiveProperty<float> onProgress = new();
-
-    private bool isStart = false;
-    private float startTime = 0;
-
-    public ProgressTimer(CompositeDisposable disposable)
+    public class ProgressTimer
     {
-        Observable.EveryUpdate().Subscribe(_ =>
+        /// <summary>
+        /// 経過時間更新.
+        /// </summary>
+        public IReadOnlyReactiveProperty<float> OnProgress => onProgress;
+
+        private readonly ReactiveProperty<float> onProgress = new();
+
+        private bool isStart = false;
+        private float startTime = 0;
+
+        public ProgressTimer(CompositeDisposable disposable)
         {
-            if (!isStart)
+            Observable.EveryUpdate().Subscribe(_ =>
             {
-                return;
-            }
-            
-            var progressTime = Time.time - startTime;
-            onProgress.Value = progressTime;
-        }).AddTo(disposable);
-    }
+                if (!isStart)
+                {
+                    return;
+                }
 
-    public void Start()
-    {
-        isStart = true;
-        startTime = Time.time;
+                var progressTime = Time.time - startTime;
+                onProgress.Value = progressTime;
+            }).AddTo(disposable);
+        }
+
+        public void Start()
+        {
+            isStart = true;
+            startTime = Time.time;
+        }
     }
 }

@@ -1,17 +1,20 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreView : MonoBehaviour
+namespace Otoge.Presentation
 {
-    [SerializeField]
-    private TextMeshProUGUI scoreText;
-
-    /// <summary>
-    /// スコア変化.
-    /// </summary>
-    /// <param name="score"></param>
-    public void ChangeScore(int score)
+    public class ScoreView : MonoBehaviour
     {
-        scoreText.text = score.ToString();
+        [SerializeField]
+        private TextMeshProUGUI scoreText;
+
+        /// <summary>
+        /// スコア変化.
+        /// </summary>
+        /// <param name="score"></param>
+        public void ChangeScore(int score)
+        {
+            scoreText.text = score.ToString();
+        }
     }
 }

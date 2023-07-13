@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 
-namespace Otoge.Domain.Otoge.Scripts.Runtime.Domain.Play
+namespace Otoge.Domain
 {
     /// <summary>
     /// インゲームのロジック管理.

@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Otoge.Scripts.InGame.Presentation.View
+namespace Otoge.Presentation
 {
     /// <summary>
     /// １章節ライン.

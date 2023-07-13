@@ -1,11 +1,16 @@
-/// <summary>
-/// ノーツタイプ.
-/// </summary>
-public enum NoteType
+
+namespace Otoge.Domain
 {
-    // 単発ノーツ.
-    Tap, 
-    // ホールドノーツ.
-    HoldStart,
-    HoldEnd,
+    /// <summary>
+    /// ノーツタイプ.
+    /// </summary>
+    public enum NoteType
+    {
+        // 単発ノーツ.
+        Tap,
+
+        // ホールドノーツ.
+        HoldStart,
+        HoldEnd,
+    }
 }

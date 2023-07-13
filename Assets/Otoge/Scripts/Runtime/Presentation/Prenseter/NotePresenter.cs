@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Otoge.Scripts.InGame.Application.Interface;
+using Otoge.Domain;
 using UniRx;
 using UnityEngine;
 
-namespace Otoge.Scripts.InGame.Presentation
+namespace Otoge.Presentation
 {
     /// <summary>
     /// ノーツのPresenter.
