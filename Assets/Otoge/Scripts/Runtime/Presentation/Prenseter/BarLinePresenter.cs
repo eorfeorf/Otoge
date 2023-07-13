@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using Otoge.Domain;
 using Otoge.Scripts.InGame.Domain;
 using Otoge.Scripts.InGame.Presentation.View;
 using UniRx;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
-namespace Otoge.Scripts.InGame.Presentation
+namespace Otoge.Presentation
 {
     public class BarLinePresenter
     {

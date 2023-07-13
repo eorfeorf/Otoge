@@ -1,9 +1,10 @@
-﻿using System.Data.SqlTypes;
-
-/// <summary>
-/// 入力データ.
-/// </summary>
-public struct InputEventData
+﻿namespace Otoge.Domain
 {
-    public int PointerId;
+    /// <summary>
+    /// 入力データ.
+    /// </summary>
+    public struct InputEventData
+    {
+        public int PointerId;
+    }
 }

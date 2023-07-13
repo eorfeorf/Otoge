@@ -1,7 +1,11 @@
-﻿/// <summary>
-/// 入力コマンドのデータ.
-/// </summary>
-public struct InputCommandData
+﻿
+namespace Otoge.Domain
 {
-    public int Lane;
+    /// <summary>
+    /// 入力コマンドのデータ.
+    /// </summary>
+    public struct InputCommandData
+    {
+        public int Lane;
+    }
 }

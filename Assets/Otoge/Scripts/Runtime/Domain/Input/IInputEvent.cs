@@ -1,18 +1,21 @@
 ﻿using System;
 using UniRx;
 
-/// <summary>
-/// 入力操作の定義.
-/// </summary>
-public interface IInputEvent
+namespace Otoge.Domain
 {
     /// <summary>
-    /// 触れた.
+    /// 入力操作の定義.
     /// </summary>
-    public IReadOnlyReactiveProperty<InputEventData> Push { get; }
+    public interface IInputEvent
+    {
+        /// <summary>
+        /// 触れた.
+        /// </summary>
+        public IReadOnlyReactiveProperty<InputEventData> Push { get; }
     
-    /// <summary>
-    /// 離した.
-    /// </summary>
-    public IReadOnlyReactiveProperty<InputEventData> Release { get; }
+        /// <summary>
+        /// 離した.
+        /// </summary>
+        public IReadOnlyReactiveProperty<InputEventData> Release { get; }
+    }
 }

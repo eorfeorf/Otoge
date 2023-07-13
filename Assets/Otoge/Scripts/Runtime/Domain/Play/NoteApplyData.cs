@@ -1,8 +1,11 @@
-﻿/// <summary>
-/// ノーツ適用時のデータ.
-/// </summary>
-public class NoteApplyData
+﻿namespace Otoge.Domain
 {
-    public Note Note;
-    public GameDefine.JudgeRank Rank;
+    /// <summary>
+    /// ノーツ適用時のデータ.
+    /// </summary>
+    public class NoteApplyData
+    {
+        public Note Note;
+        public GameDefine.JudgeRank Rank;
+    }
 }

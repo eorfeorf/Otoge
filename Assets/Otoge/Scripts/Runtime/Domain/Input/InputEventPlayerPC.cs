@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Otoge.Domain;
+using UniRx;
 using UnityEngine;
 
 /// <summary>

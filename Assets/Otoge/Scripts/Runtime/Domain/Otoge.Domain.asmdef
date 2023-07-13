@@ -1,0 +1,17 @@
+{
+    "name": "Otoge.Domain",
+    "rootNamespace": "Otoge.Domain",
+    "references": [
+        "UniRx",
+        "Domain"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,3 +1,4 @@
+using Otoge.Domain;
 using UniRx;
 
 /// <summary>

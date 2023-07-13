@@ -1,4 +1,4 @@
-﻿namespace Otoge.Scripts.InGame.Domain
+﻿namespace Otoge.Domain
 {
     public class BarLine
     {

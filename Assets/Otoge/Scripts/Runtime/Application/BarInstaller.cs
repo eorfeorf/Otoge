@@ -1,4 +1,4 @@
-﻿namespace Otoge.Scripts.InGame.Application
+﻿namespace Otoge.Application
 {
     interface IInstaller
     {
