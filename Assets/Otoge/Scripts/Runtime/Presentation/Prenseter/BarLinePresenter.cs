@@ -2,6 +2,7 @@
 using Otoge.Domain;
 using UniRx;
 using UnityEngine;
+using VContainer;
 
 namespace Otoge.Presentation
 {
@@ -13,11 +14,10 @@ namespace Otoge.Presentation
         private readonly List<BarView> barViews = new();
 
         private ProgressTimer _progressTimer;
-        private CompositeDisposable _compositeDisposable = new CompositeDisposable();
-        private BarLine _barLine;
+        private readonly BarLine _barLine;
 
-        public BarLinePresenter(LifeCycle lifeCycle, BarView.Factory factory, Transform parent, BarLine barLine,
-            ProgressTimer progressTimer)
+        [Inject]
+        public BarLinePresenter(BarView.Factory factory, Transform parent, BarLine barLine, ProgressTimer progressTimer, LifeCycle lifeCycle)
         {
             _barLine = barLine;
 
@@ -40,7 +40,7 @@ namespace Otoge.Presentation
                 {
                     Update(view, ++index, progressTime);
                 }
-            }).AddTo(_compositeDisposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
         }
 
         private void Update(BarView view, int index, float progressTime)

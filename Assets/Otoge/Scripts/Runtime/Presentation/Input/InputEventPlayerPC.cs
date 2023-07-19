@@ -1,6 +1,7 @@
 ﻿using Otoge.Domain;
 using UniRx;
 using UnityEngine;
+using VContainer;
 
 namespace Otoge.Presentation
 {
@@ -21,7 +22,8 @@ namespace Otoge.Presentation
         public IReadOnlyReactiveProperty<InputEventData> Release => release;
         private ReactiveProperty<InputEventData> release = new();
 
-        public InputEventPlayerPC(CompositeDisposable disposable)
+        [Inject]
+        public InputEventPlayerPC(LifeCycle lifeCycle)
         {
             Observable.EveryUpdate().Subscribe(_ =>
             {
@@ -39,7 +41,7 @@ namespace Otoge.Presentation
                         release.SetValueAndForceNotify(data);
                     }
                 }
-            }).AddTo(disposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
         }
     }
 }

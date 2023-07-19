@@ -3,7 +3,7 @@
     "rootNamespace": "Otoge.Domain",
     "references": [
         "UniRx",
-        "Domain"
+        "VContainer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

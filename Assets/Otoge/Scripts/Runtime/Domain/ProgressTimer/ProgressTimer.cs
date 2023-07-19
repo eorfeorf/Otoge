@@ -1,5 +1,6 @@
 using UniRx;
 using UnityEngine;
+using VContainer;
 
 namespace Otoge.Domain
 {
@@ -9,13 +10,13 @@ namespace Otoge.Domain
         /// 経過時間更新.
         /// </summary>
         public IReadOnlyReactiveProperty<float> OnProgress => _onProgress;
-
         private readonly ReactiveProperty<float> _onProgress = new();
-
+        
         private bool _isStart = false;
         private float _startTime = 0;
 
-        public ProgressTimer(CompositeDisposable disposable)
+        [Inject]
+        public ProgressTimer(LifeCycle lifeCycle)
         {
             // TODO:音のシークにする.
             Observable.EveryUpdate().Subscribe(_ =>
@@ -27,7 +28,7 @@ namespace Otoge.Domain
 
                 var progressTime = Time.time - _startTime;
                 _onProgress.Value = progressTime;
-            }).AddTo(disposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
         }
 
         public void Start()

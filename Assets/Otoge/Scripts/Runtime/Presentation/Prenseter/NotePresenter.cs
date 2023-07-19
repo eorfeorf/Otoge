@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Otoge.Domain;
 using UniRx;
 using UnityEngine;
+using VContainer;
 
 namespace Otoge.Presentation
 {
@@ -19,6 +20,7 @@ namespace Otoge.Presentation
         private ProgressTimer _progressTimer;
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         
+        [Inject]
         public NotePresenter(ProgressTimer progressTimer)
         {
             _progressTimer = progressTimer;

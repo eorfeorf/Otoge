@@ -1,4 +1,5 @@
 using UniRx;
+using VContainer;
 
 namespace Otoge.Domain
 {
@@ -10,6 +11,7 @@ namespace Otoge.Domain
         public IReactiveProperty<int> Value => _value;
         private readonly ReactiveProperty<int> _value = new();
 
+        [Inject]
         public Combo(InGamePlayer inGamePlayer, LifeCycle lifeCycle)
         {
             // ノーツ適用.

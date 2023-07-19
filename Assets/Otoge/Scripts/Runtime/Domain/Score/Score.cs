@@ -1,7 +1,14 @@
 using UniRx;
+using UnityEngine;
+using VContainer;
 
 namespace Otoge.Domain
 {
+    public class A : ScriptableObject
+    {
+    
+    }
+    
     /// <summary>
     /// インゲーム内のスコア.
     /// </summary>
@@ -13,12 +20,13 @@ namespace Otoge.Domain
         public IReadOnlyReactiveProperty<int> Value => _value;
         private readonly ReactiveProperty<int> _value = new();
         
-        public Score(InGamePlayer inGamePlayer, ScoreCalculator scoreCalculator, LifeCycle _lifeCycle)
+        [Inject]
+        public Score(InGamePlayer inGamePlayer, LifeCycle _lifeCycle)
         {
             // ノーツランク適用.
             inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
             {
-                Add(scoreCalculator.Calc(data.Rank));
+                Add(ScoreCalculator.Calc(data.Rank));
             }).AddTo(_lifeCycle.CompositeDisposable);
             
             // ノーツが通り過ぎた.

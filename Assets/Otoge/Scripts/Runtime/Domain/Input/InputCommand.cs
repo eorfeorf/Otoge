@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UniRx;
+using VContainer;
 
 namespace Otoge.Domain
 {
@@ -14,29 +15,25 @@ namespace Otoge.Domain
         /// タップ.
         /// </summary>
         public IReadOnlyReactiveProperty<InputCommandData> Tap => tap;
-
         private readonly ReactiveProperty<InputCommandData> tap = new();
 
         /// <summary>
         /// ホールド.
         /// </summary>
         public IReadOnlyReactiveProperty<InputCommandData> Hold => hold;
-
         private readonly ReactiveProperty<InputCommandData> hold = new();
 
         /// <summary>
         /// リリース.
         /// </summary>
         public IReadOnlyReactiveProperty<InputCommandData> Release => _release;
-
         private readonly ReactiveProperty<InputCommandData> _release = new();
-
-        private readonly CompositeDisposable disposable = new();
 
         // タップID, イベント紐づけ.
         private readonly Dictionary<int, InputEventData> inputEventMap = new();
 
-        public InputCommand(IInputEvent inputEvent)
+        [Inject]
+        public InputCommand(IInputEvent inputEvent, LifeCycle lifeCycle)
         {
             inputEvent.Push.SkipLatestValueOnSubscribe().Subscribe(inputEventData =>
             {
@@ -60,7 +57,7 @@ namespace Otoge.Domain
                     Lane = inputEventData.PointerId
                 };
                 tap.SetValueAndForceNotify(tapData);
-            }).AddTo(disposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
 
             // 離した.
             inputEvent.Release.SkipLatestValueOnSubscribe().Subscribe(inputEventData =>
@@ -79,7 +76,7 @@ namespace Otoge.Domain
                     };
                     _release.SetValueAndForceNotify(holdReleaseData);
                 }
-            }).AddTo(disposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
         }
     }
 }

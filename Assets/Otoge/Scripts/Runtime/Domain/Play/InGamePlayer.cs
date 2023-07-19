@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
+using VContainer;
 
 namespace Otoge.Domain
 {
@@ -25,6 +26,7 @@ namespace Otoge.Domain
         private readonly NoteContainer _noteContainer;
         private readonly LifeCycle _lifeCycle;
 
+        [Inject]
         public InGamePlayer(NoteContainer noteContainer, ProgressTimer progressTimer, InputCommand inputCommand, LifeCycle lifeCycle)
         {
             _lifeCycle = lifeCycle;

@@ -2,6 +2,12 @@
 {
     public class BarLine
     {
+        public BarLine(float bpm, float bgmTime)
+        {
+            Bpm = bpm;
+            BgmTime = bgmTime;
+        }
+        
         /// <summary>
         /// BPM.
         /// </summary>

@@ -1,3 +1,4 @@
+using Otoge.Domain;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Otoge.Presentation
     {
         [SerializeField]
         private TextMeshPro rankText;
-
+        
         /// <summary>
         /// ランクテキスト反映.
         /// </summary>

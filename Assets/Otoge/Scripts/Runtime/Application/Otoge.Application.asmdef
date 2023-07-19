@@ -3,7 +3,8 @@
     "rootNamespace": "Otoge.Application",
     "references": [
         "VContainer",
-        "Otoge.Domain"
+        "Otoge.Domain",
+        "Otoge.Presentation"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

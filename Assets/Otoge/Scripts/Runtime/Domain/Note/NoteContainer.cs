@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using VContainer;
 
 namespace Otoge.Domain
 {
@@ -14,6 +15,7 @@ namespace Otoge.Domain
         /// ノーツデータの生成.
         /// TODO:譜面からデータに変換.
         /// </summary>
+        [Inject]
         public NoteContainer()
         {
             float startTime = 0f;

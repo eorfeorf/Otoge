@@ -1,17 +1,18 @@
-using UnityEngine;
-
-/// <summary>
-/// スコア計算.
-/// </summary>
-public class ScoreCalculator
+namespace Otoge.Domain
 {
     /// <summary>
-    /// 最終的なスコア計算.
+    /// スコア計算.
     /// </summary>
-    /// <returns></returns>
-    public int Calc(GameDefine.JudgeRank rank)
+    public class ScoreCalculator
     {
-        var score = GameDefine.JudgeRankScore[(int) rank];
-        return score;
+        /// <summary>
+        /// 最終的なスコア計算.
+        /// </summary>
+        /// <returns></returns>
+        public static int Calc(GameDefine.JudgeRank rank)
+        {
+            var score = GameDefine.JudgeRankScore[(int) rank];
+            return score;
+        }
     }
 }

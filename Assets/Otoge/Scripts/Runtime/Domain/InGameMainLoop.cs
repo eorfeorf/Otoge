@@ -1,5 +1,6 @@
 ﻿using UniRx;
 using UnityEngine;
+using VContainer;
 
 namespace Otoge.Domain
 {
@@ -8,13 +9,14 @@ namespace Otoge.Domain
         /// <summary>
         /// ゲームが開始されたか
         /// </summary>
-        private bool isStart = false;
+        private bool _isStart = false;
         
         private readonly LifeCycle _lifeCycle;
         private readonly ProgressTimer _progressTimer;
         private readonly NoteContainer _noteContainer;
 
-        public InGameMainLoop(NoteContainer noteContainer, InGamePlayer inGamePlayer, ProgressTimer progressTimer, Combo combo, Score score, ScoreCalculator scoreCalculator, LifeCycle lifeCycle)
+        [Inject]
+        public InGameMainLoop(NoteContainer noteContainer, ProgressTimer progressTimer, LifeCycle lifeCycle)
         {
             _lifeCycle = lifeCycle;
             _progressTimer = progressTimer;
@@ -41,7 +43,7 @@ namespace Otoge.Domain
         public void Play()
         {
             _progressTimer.Start();
-            isStart = true;
+            _isStart = true;
         }
 
         /// <summary>

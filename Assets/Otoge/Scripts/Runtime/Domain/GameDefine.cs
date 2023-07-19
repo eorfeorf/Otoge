@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Otoge.Application
+namespace Otoge.Domain
 {
     [Serializable]
     public struct InputKeyToLaneData
