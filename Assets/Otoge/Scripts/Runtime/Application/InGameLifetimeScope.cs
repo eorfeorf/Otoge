@@ -19,13 +19,14 @@ namespace Otoge.Application
             builder.Register<InGameMainLoop>(Lifetime.Singleton);
             
             builder.Register<InputCommand>(Lifetime.Singleton);
+            builder.Register<NoteContainer>(Lifetime.Singleton);
             
             //
             // Presentation.
             //
             builder.Register<IInputEvent, InputEventPlayerPC>(Lifetime.Singleton);
 
-            builder.RegisterEntryPoint<InGameMainLoop>();
+            //builder.RegisterEntryPoint<InGameMainLoop>();
         }
     }
 }

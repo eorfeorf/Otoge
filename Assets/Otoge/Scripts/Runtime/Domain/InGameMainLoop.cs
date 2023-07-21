@@ -1,6 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Otoge.Domain
 {
@@ -18,9 +19,10 @@ namespace Otoge.Domain
         [Inject]
         public InGameMainLoop(NoteContainer noteContainer, ProgressTimer progressTimer, LifeCycle lifeCycle)
         {
-            _lifeCycle = lifeCycle;
-            _progressTimer = progressTimer;
+            Debug.Log("Inject InGameMainLoop.");
             _noteContainer = noteContainer;
+            _progressTimer = progressTimer;
+            _lifeCycle = lifeCycle;
         
 #if UNITY_EDITOR
             // 更新.
