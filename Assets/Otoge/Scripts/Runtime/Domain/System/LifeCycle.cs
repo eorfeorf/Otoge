@@ -1,5 +1,6 @@
 ﻿using System;
 using UniRx;
+using UnityEngine;
 
 namespace Otoge.Domain
 {
@@ -7,6 +8,11 @@ namespace Otoge.Domain
     {
         public CompositeDisposable CompositeDisposable { get; private set; } = new CompositeDisposable();
 
+        public LifeCycle()
+        {
+            Debug.Log("[LifeCycle] Initialized.");
+        }
+        
         public void Dispose()
         {
             CompositeDisposable?.Dispose();

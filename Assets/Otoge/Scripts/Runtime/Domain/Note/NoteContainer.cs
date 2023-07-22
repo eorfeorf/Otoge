@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using VContainer;
 
 namespace Otoge.Domain
@@ -24,10 +25,12 @@ namespace Otoge.Domain
             for (int i = 0; i < GameDefine.NOTE_NUM; ++i)
             {
                 // 譜面情報からわかる.
-                var time = (i * spb) + startTime;
+                var time = i + startTime;
                 var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, time, i);
                 notes.Add(note.UId, note);
             }
+            
+            Debug.Log("[NoteContainer] Initialized.");
         }
 
         /// <summary>

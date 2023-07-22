@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UniRx;
+using UnityEngine;
 using VContainer;
 
 namespace Otoge.Domain
@@ -77,6 +78,8 @@ namespace Otoge.Domain
                     _release.SetValueAndForceNotify(holdReleaseData);
                 }
             }).AddTo(lifeCycle.CompositeDisposable);
+            
+            Debug.Log("[InputCommand] Initialized.");
         }
     }
 }

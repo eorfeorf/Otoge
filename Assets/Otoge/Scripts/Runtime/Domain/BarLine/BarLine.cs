@@ -1,4 +1,6 @@
-﻿namespace Otoge.Domain
+﻿using UnityEngine;
+
+namespace Otoge.Domain
 {
     public class BarLine
     {
@@ -6,6 +8,8 @@
         {
             Bpm = bpm;
             BgmTime = bgmTime;
+            
+            Debug.Log("[BarLine] Initialized.");
         }
         
         /// <summary>

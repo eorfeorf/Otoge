@@ -29,40 +29,40 @@ namespace Otoge.Domain
 
                     break;
                 }
-                case NoteType.HoldStart:
-                {
-                    // ノーツがアクティブかどうか気にする必要がありそう.
-                    // NoteじゃなくてNoteBaseでもらった方がよいのでは.
-                    var time = note.Time;
-                    var early = time + -GameDefine.TimingGood;
-                    var late = time + GameDefine.TimingGood;
-                    if (early <= progressTime && progressTime <= late)
-                    {
-                        // 範囲内.
-                        return true;
-                    }
-
-                    break;
-                }
-
-                case NoteType.HoldEnd:
-                {
-                    // ノーツがアクティブかどうか気にする必要がありそう.
-                    // NoteじゃなくてNoteBaseでもらった方がよいのでは.
-                    var time = note.Time;
-                    var early = time + -GameDefine.TimingGood;
-                    var late = time + GameDefine.TimingGood;
-                    if (early <= progressTime && progressTime <= late)
-                    {
-                        // 範囲内.
-                        return true;
-                    }
-
-                    break;
-                }
-                    break;
-                default:
-                    break;
+                // case NoteType.HoldStart:
+                // {
+                //     // ノーツがアクティブかどうか気にする必要がありそう.
+                //     // NoteじゃなくてNoteBaseでもらった方がよいのでは.
+                //     var time = note.Time;
+                //     var early = time + -GameDefine.TimingGood;
+                //     var late = time + GameDefine.TimingGood;
+                //     if (early <= progressTime && progressTime <= late)
+                //     {
+                //         // 範囲内.
+                //         return true;
+                //     }
+                //
+                //     break;
+                // }
+                //
+                // case NoteType.HoldEnd:
+                // {
+                //     // ノーツがアクティブかどうか気にする必要がありそう.
+                //     // NoteじゃなくてNoteBaseでもらった方がよいのでは.
+                //     var time = note.Time;
+                //     var early = time + -GameDefine.TimingGood;
+                //     var late = time + GameDefine.TimingGood;
+                //     if (early <= progressTime && progressTime <= late)
+                //     {
+                //         // 範囲内.
+                //         return true;
+                //     }
+                //
+                //     break;
+                // }
+                //     break;
+                // default:
+                //     break;
             }
 
             return false;

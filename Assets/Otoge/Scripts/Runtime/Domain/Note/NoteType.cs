@@ -10,7 +10,6 @@ namespace Otoge.Domain
         Tap,
 
         // ホールドノーツ.
-        HoldStart,
-        HoldEnd,
+        Hold
     }
 }

@@ -29,6 +29,8 @@ namespace Otoge.Domain
                 var progressTime = Time.time - _startTime;
                 _onProgress.Value = progressTime;
             }).AddTo(lifeCycle.CompositeDisposable);
+            
+            Debug.Log("[ProgressTimer] Initialized.");
         }
 
         public void Start()

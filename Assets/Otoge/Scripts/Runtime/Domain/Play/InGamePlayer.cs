@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
+using UnityEngine;
 using VContainer;
 
 namespace Otoge.Domain
@@ -52,6 +53,8 @@ namespace Otoge.Domain
                     onPassNote.SetValueAndForceNotify(data);
                 }
             }).AddTo(_lifeCycle.CompositeDisposable);
+            
+            Debug.Log("[InGamePlayer] Initialized.");
         }
 
         /// <summary>

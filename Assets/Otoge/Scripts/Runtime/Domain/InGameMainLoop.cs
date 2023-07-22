@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Otoge.Domain
 {
-    public class InGameMainLoop
+    public class InGameMainLoop : IInitializable
     {
         /// <summary>
         /// ゲームが開始されたか
@@ -16,10 +16,13 @@ namespace Otoge.Domain
         private readonly ProgressTimer _progressTimer;
         private readonly NoteContainer _noteContainer;
 
+        public void Initialize()
+        {
+        }
+        
         [Inject]
         public InGameMainLoop(NoteContainer noteContainer, ProgressTimer progressTimer, LifeCycle lifeCycle)
         {
-            Debug.Log("Inject InGameMainLoop.");
             _noteContainer = noteContainer;
             _progressTimer = progressTimer;
             _lifeCycle = lifeCycle;
@@ -36,7 +39,9 @@ namespace Otoge.Domain
 #endif
         
             // 初期化完了通知.
-            Debug.Log("[GameModel] Initialized.");
+            Debug.Log("[InGameMainLoop] Initialized.");
+            
+            Play();
         }
         
         /// <summary>

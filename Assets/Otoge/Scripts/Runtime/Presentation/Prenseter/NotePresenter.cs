@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using Otoge.Domain;
 using UniRx;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Otoge.Presentation
 {
@@ -10,25 +10,30 @@ namespace Otoge.Presentation
     /// ノーツのPresenter.
     /// DomainのデータからViewを反映させる.
     /// </summary>
-    public class NotePresenter
+    public class NotePresenter : IInitializable
     {
-        /// <summary>
-        /// UID,noteView
-        /// </summary>
-        private readonly Dictionary<int, NoteView> _noteViews = new();
-
-        private ProgressTimer _progressTimer;
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+        private readonly ProgressTimer _progressTimer;
+        private readonly NoteViewRepository _noteViewRepository;
+
+        public void Initialize()
+        {
+            
+        }
         
         [Inject]
-        public NotePresenter(ProgressTimer progressTimer)
+        public NotePresenter(NoteViewRepository noteViewRepository, ProgressTimer progressTimer)
         {
             _progressTimer = progressTimer;
+            _noteViewRepository = noteViewRepository;
             
+            // ノーツ更新.
             _progressTimer.OnProgress.Subscribe(progressTime =>
             {
                 UpdateProgressTime(progressTime);
             }).AddTo(_compositeDisposable);
+            
+            Debug.Log("[NotePresenter] Initialized.");
         }
         
         /// <summary>
@@ -38,15 +43,15 @@ namespace Otoge.Presentation
         private void UpdateProgressTime(float progressTime)
         {
             // ノーツの位置.
-            foreach (var view in _noteViews)
+            foreach (var view in _noteViewRepository.NoteView)
             {
                 // ノーツ時間と経過時間を比較してノーツの位置を計算.
-                var noteView = view.Value;
+                var noteView = view;
                 var pos = noteView.Transform.position;
-                var sub = view.Value.Time - progressTime;
+                var sub = view.Time - progressTime;
                 var posY = sub * GameDefine.NOTE_BASE_SPEED;
                 pos = new Vector3(pos.x, posY, pos.z);
-                view.Value.Transform.position = pos;
+                view.Transform.position = pos;
             }
         }
 
@@ -56,7 +61,7 @@ namespace Otoge.Presentation
         /// <param name="note"></param>
         public void ApplyNote(Note note)
         {
-            _noteViews[note.UId].GameObject.SetActive(false);
+            _noteViewRepository.NoteView[note.UId].GameObject.SetActive(false);
         }
 
         /// <summary>
@@ -66,7 +71,7 @@ namespace Otoge.Presentation
         /// <param name="note"></param>
         public void PassNote(Note note)
         {
-            _noteViews[note.UId].GameObject.SetActive(false);
+            _noteViewRepository.NoteView[note.UId].GameObject.SetActive(false);
         }
 
         /// <summary>
@@ -74,9 +79,9 @@ namespace Otoge.Presentation
         /// </summary>
         public void Reset()
         {
-            foreach (var view in _noteViews)
+            foreach (var view in _noteViewRepository.NoteView)
             {
-                view.Value.GameObject.SetActive(true);
+                view.GameObject.SetActive(true);
             }
         }
     }
