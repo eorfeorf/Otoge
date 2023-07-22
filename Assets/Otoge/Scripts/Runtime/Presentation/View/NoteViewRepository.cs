@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Otoge.Domain;
 using UnityEngine;
 using VContainer;
@@ -14,12 +15,13 @@ namespace Otoge.Presentation
         private readonly List<NoteViewTap> _noteView = new();
 
         [Inject]
-        public NoteViewRepository(NoteViewFactory noteViewFactory, NoteContainer noteContainer)
+        public NoteViewRepository(NoteViewFactory noteViewFactory, NoteContainer noteContainer, InGameViewInfo inGameViewInfo)
         {
-            foreach (var note in noteContainer.Notes)
+            foreach (var note in noteContainer.Notes.Select(x => x.Value))
             {
-                var view = noteViewFactory.CreateNoteView<NoteViewTap>(note.Value);
-                _noteView.Add(view);   
+                var view = noteViewFactory.CreateNoteView(note.Type);
+                view.Initialize(note.Time, note.Lane, note.Size, inGameViewInfo);
+                _noteView.Add(view);
             }
             
             Debug.Log("[NoteViewRepository] Initialized");

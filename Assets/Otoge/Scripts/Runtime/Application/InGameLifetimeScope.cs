@@ -21,7 +21,8 @@ namespace Otoge.Application
             builder.Register<BarLine>(Lifetime.Singleton);
             builder.Register<InputCommand>(Lifetime.Singleton);
             builder.Register<NoteContainer>(Lifetime.Singleton);
-            builder.Register<InGameMainLoop>(Lifetime.Singleton);
+            //builder.Register<InGameMainLoop>(Lifetime.Singleton);
+            builder.Register<InGameConfiguration>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<InGameMainLoop>();
             
@@ -31,7 +32,8 @@ namespace Otoge.Application
             builder.Register<IInputEvent, InputEventPlayerPC>(Lifetime.Singleton);
             builder.RegisterComponent(noteViewFactory);
             builder.Register<NoteViewRepository>(Lifetime.Singleton);
-            builder.Register<NotePresenter>(Lifetime.Singleton);
+            //builder.Register<NotePresenter>(Lifetime.Singleton);
+            builder.Register<InGameViewInfo>(Lifetime.Singleton);
 
             builder.RegisterEntryPoint<NotePresenter>();
         }

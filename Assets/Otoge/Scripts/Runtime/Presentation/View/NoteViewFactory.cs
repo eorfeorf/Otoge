@@ -16,14 +16,12 @@ namespace Otoge.Presentation
         [SerializeField]
         private NoteViewTap tapNotePrefab;
 
-        public NoteViewTap CreateNoteView<T>(Note note)
+        public NoteViewTap CreateNoteView(NoteType type)
         {
-            switch (note.Type)
+            switch (type)
             {
                 case NoteType.Tap:
-                    var view = Instantiate(tapNotePrefab, parent);
-                    view.Initialize(note.Time, note.Lane);
-                    return view; 
+                    return Instantiate(tapNotePrefab, parent);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

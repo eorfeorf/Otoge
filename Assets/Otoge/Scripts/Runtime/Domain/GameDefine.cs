@@ -52,28 +52,18 @@ namespace Otoge.Domain
             },
             new()
             {
-                Key = KeyCode.D,
+                Key = KeyCode.F,
                 LaneIndex = 1,
             },
             new()
             {
-                Key = KeyCode.F,
+                Key = KeyCode.J,
                 LaneIndex = 2,
             },
             new()
             {
-                Key = KeyCode.J,
-                LaneIndex = 3,
-            },
-            new()
-            {
-                Key = KeyCode.K,
-                LaneIndex = 4,
-            },
-            new()
-            {
                 Key = KeyCode.L,
-                LaneIndex = 5,
+                LaneIndex = 3,
             },
         };
 

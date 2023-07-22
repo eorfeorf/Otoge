@@ -26,7 +26,7 @@ namespace Otoge.Domain
             {
                 // 譜面情報からわかる.
                 var time = i + startTime;
-                var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, time, i);
+                var note = Create(NoteType.Tap, i, i % GameDefine.LANE_NUM, time, 1, i);
                 notes.Add(note.UId, note);
             }
             
@@ -40,9 +40,10 @@ namespace Otoge.Domain
         /// <param name="pairId"></param>
         /// <param name="lane"></param>
         /// <param name="time"></param>
-        /// <param name="active"></param>
+        /// <param name="size"></param>
+        /// <param name="uid"></param>
         /// <returns></returns>
-        private Note Create(NoteType type, int pairId, int lane, float time, int uid)
+        private Note Create(NoteType type, int pairId, int lane, float time, int size, int uid)
         {
             var note = new Note
             {
@@ -50,6 +51,7 @@ namespace Otoge.Domain
                 Active = true,
                 Lane = lane,
                 Time = time,
+                Size = size,
                 PairId = pairId,
                 UId = uid,
             };
@@ -64,13 +66,15 @@ namespace Otoge.Domain
         /// <param name="isActive"></param>
         public void SetActive(Note note, bool isActive)
         {
-            note.Active = isActive;
+            notes[note.UId].Active = isActive;
+            //note.Active = isActive;
         }
 
         /// <summary>
         /// アクティブを設定.
         /// </summary>
         /// <param name="note"></param>
+        /// <param name="isActive"></param>
         public void SetActiveAll(bool isActive)
         {
             foreach (var note in notes)

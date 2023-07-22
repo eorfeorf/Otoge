@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Otoge.Presentation
 {
@@ -21,7 +22,7 @@ namespace Otoge.Presentation
         /// </summary>
         public IReadOnlyReactiveProperty<InputEventData> Release => release;
         private ReactiveProperty<InputEventData> release = new();
-
+        
         [Inject]
         public InputEventPlayerPC(LifeCycle lifeCycle)
         {

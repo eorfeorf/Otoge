@@ -3,13 +3,14 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Otoge.Domain
 {
     /// <summary>
     /// インゲームのロジック管理.
     /// </summary>
-    public class InGamePlayer
+    public class InGamePlayer : IInitializable
     {
         /// <summary>
         /// 入力適用イベント.
@@ -21,11 +22,16 @@ namespace Otoge.Domain
         /// ノーツが通り過ぎたイベント.
         /// </summary>
         public IReadOnlyReactiveProperty<NoteApplyData> OnPassNote => onPassNote;
-        private ReactiveProperty<NoteApplyData> onPassNote = new();
+        private readonly ReactiveProperty<NoteApplyData> onPassNote = new();
 
         private readonly InputCommand _inputCommand;
         private readonly NoteContainer _noteContainer;
-        private readonly LifeCycle _lifeCycle;
+        private readonly LifeCycle _lifeCycle;  
+
+        public void Initialize()
+        {
+            Debug.Log("");
+        }
 
         [Inject]
         public InGamePlayer(NoteContainer noteContainer, ProgressTimer progressTimer, InputCommand inputCommand, LifeCycle lifeCycle)

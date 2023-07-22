@@ -22,15 +22,28 @@ namespace Otoge.Presentation
         }
         
         [Inject]
-        public NotePresenter(NoteViewRepository noteViewRepository, ProgressTimer progressTimer)
+        public NotePresenter(NoteViewRepository noteViewRepository, ProgressTimer progressTimer,
+            InGamePlayer inGamePlayer, LifeCycle lifeCycle)
         {
             _progressTimer = progressTimer;
             _noteViewRepository = noteViewRepository;
-            
+
             // ノーツ更新.
             _progressTimer.OnProgress.Subscribe(progressTime =>
             {
                 UpdateProgressTime(progressTime);
+            }).AddTo(_compositeDisposable);
+            
+            // ノーツ適用.
+            inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(applyData =>
+            {
+                ApplyNote(applyData.Note);
+            }).AddTo(_compositeDisposable);
+            
+            // ノーツ通過.
+            inGamePlayer.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(applyData =>
+            {
+                PassNote(applyData.Note);
             }).AddTo(_compositeDisposable);
             
             Debug.Log("[NotePresenter] Initialized.");
