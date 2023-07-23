@@ -21,19 +21,19 @@ namespace Otoge.Domain
         private readonly ReactiveProperty<int> _onValueChanged = new();
         
         [Inject]
-        public Score(InGamePlayer inGamePlayer, LifeCycle _lifeCycle)
+        public Score(InGamePlayer inGamePlayer, LifeCycle lifeCycle)
         {
             // ノーツランク適用.
             inGamePlayer.OnApplyNote.SkipLatestValueOnSubscribe().Subscribe(data =>
             {
                 Add(ScoreCalculator.Calc(data.Rank));
-            }).AddTo(_lifeCycle.CompositeDisposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
             
             // ノーツが通り過ぎた.
             inGamePlayer.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(note =>
             {
                 Reset();
-            }).AddTo(_lifeCycle.CompositeDisposable);
+            }).AddTo(lifeCycle.CompositeDisposable);
         }
 
         /// <summary>
