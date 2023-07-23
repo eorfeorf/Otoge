@@ -17,7 +17,7 @@ namespace Otoge.Presentation
         private readonly BarLine _barLine;
 
         [Inject]
-        public BarLinePresenter(BarView.Factory factory, Transform parent, BarLine barLine, ProgressTimer progressTimer, LifeCycle lifeCycle)
+        public BarLinePresenter(BarLine barLine, BarView.Factory factory, Transform parent, ProgressTimer progressTimer, LifeCycle lifeCycle)
         {
             _barLine = barLine;
 
