@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Otoge.Domain;
@@ -9,7 +10,7 @@ namespace Otoge.Presentation
     /// <summary>
     /// NoteViewの実体を管理するクラス.
     /// </summary>
-    public class NoteViewRepository
+    public class NoteViewRepository : IDisposable
     {
         public IList<NoteViewTap> NoteView => _noteView;
         private readonly List<NoteViewTap> _noteView = new();
@@ -25,6 +26,11 @@ namespace Otoge.Presentation
             }
             
             Debug.Log("[NoteViewRepository] Initialized");
+        }
+
+        public void Dispose()
+        {
+            _noteView.Clear();
         }
     }
 }
