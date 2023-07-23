@@ -1,14 +1,8 @@
 using UniRx;
-using UnityEngine;
 using VContainer;
 
 namespace Otoge.Domain
 {
-    public class A : ScriptableObject
-    {
-    
-    }
-    
     /// <summary>
     /// インゲーム内のスコア.
     /// </summary>
