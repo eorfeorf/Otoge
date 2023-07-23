@@ -19,6 +19,12 @@ namespace Otoge.Domain
             {
                 Add();
             }).AddTo(lifeCycle.CompositeDisposable);
+            
+            // ノーツ通過.
+            inGamePlayer.OnPassNote.SkipLatestValueOnSubscribe().Subscribe(data =>
+            {
+                Reset();
+            }).AddTo(lifeCycle.CompositeDisposable);
         }
         
         /// <summary>

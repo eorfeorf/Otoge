@@ -11,11 +11,11 @@ namespace Otoge.Presentation
         /// <summary>
         /// コンボ数変化.
         /// </summary>
-        /// <param name="count"></param>
-        public void ChangedCombo(int count)
+        /// <param name="value"></param>
+        public void ChangedCombo(int value)
         {
-            comboText.text = count.ToString();
-            comboText.gameObject.SetActive(count != 0);
+            comboText.text = value.ToString();
+            comboText.gameObject.SetActive(value != 0);
         }
     }
 }

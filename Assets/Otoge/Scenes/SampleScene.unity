@@ -572,6 +572,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   noteViewFactory: {fileID: 68985599}
+  comboView: {fileID: 6948326410521284034}
 --- !u!4 &863089551
 Transform:
   m_ObjectHideFlags: 0
@@ -1369,6 +1370,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2396244683071712702}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6948326410521284034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1524392216382938647, guid: c06915a6d0e4ab14f9aa3f25f8931558,
+    type: 3}
+  m_PrefabInstance: {fileID: 2396244683071712702}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bec87f85be6f94fa892e75153966ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7873560752510882282
 MonoBehaviour:
   m_ObjectHideFlags: 0
