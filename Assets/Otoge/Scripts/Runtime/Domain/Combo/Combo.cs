@@ -8,8 +8,8 @@ namespace Otoge.Domain
         /// <summary>
         /// 値が変更された.
         /// </summary>
-        public IReactiveProperty<int> Value => _value;
-        private readonly ReactiveProperty<int> _value = new();
+        public IReactiveProperty<int> OnValueChanged => _onValueChanged;
+        private readonly ReactiveProperty<int> _onValueChanged = new();
 
         [Inject]
         public Combo(InGamePlayer inGamePlayer, LifeCycle lifeCycle)
@@ -27,7 +27,7 @@ namespace Otoge.Domain
         /// <param name="add"></param>
         private void Add(int add = 1)
         {
-            _value.Value += add;
+            _onValueChanged.Value += add;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Otoge.Domain
         /// </summary>
         public void Reset()
         {
-            _value.Value = 0;
+            _onValueChanged.Value = 0;
         }
     }
 }

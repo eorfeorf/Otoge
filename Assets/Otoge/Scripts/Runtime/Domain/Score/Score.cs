@@ -17,8 +17,8 @@ namespace Otoge.Domain
         /// <summary>
         /// 値が変更された.
         /// </summary>
-        public IReadOnlyReactiveProperty<int> Value => _value;
-        private readonly ReactiveProperty<int> _value = new();
+        public IReadOnlyReactiveProperty<int> OnValueChanged => _onValueChanged;
+        private readonly ReactiveProperty<int> _onValueChanged = new();
         
         [Inject]
         public Score(InGamePlayer inGamePlayer, LifeCycle _lifeCycle)
@@ -42,7 +42,7 @@ namespace Otoge.Domain
         /// <param name="addCount"></param>
         private void Add(int addCount)
         {
-            _value.Value += addCount;
+            _onValueChanged.Value += addCount;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Otoge.Domain
         /// </summary>
         private void Reset()
         {
-            _value.Value = 0;
+            _onValueChanged.Value = 0;
         }
     }
 }
