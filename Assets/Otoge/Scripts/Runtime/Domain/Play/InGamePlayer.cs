@@ -10,7 +10,7 @@ namespace Otoge.Domain
     /// <summary>
     /// インゲームのロジック管理.
     /// </summary>
-    public class InGamePlayer : IInitializable
+    public class InGamePlayer
     {
         /// <summary>
         /// 入力適用イベント.

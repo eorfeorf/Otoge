@@ -22,7 +22,7 @@ namespace Otoge.Application
             builder.Register<InputCommand>(Lifetime.Singleton);
             builder.Register<NoteContainer>(Lifetime.Singleton);
             builder.Register<InGameConfiguration>(Lifetime.Singleton);
-            
+
             builder.RegisterEntryPoint<InGameMainLoop>();
             
             
@@ -34,7 +34,7 @@ namespace Otoge.Application
             builder.Register<NoteViewRepository>(Lifetime.Singleton);
             builder.Register<InGameViewInfo>(Lifetime.Singleton);
 
-            builder.RegisterEntryPoint<NotePresenter>();
+            builder.Register<NotePresenter>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }
