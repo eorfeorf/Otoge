@@ -1,4 +1,5 @@
 ﻿using Otoge.Domain;
+using Otoge.Domain.Rank;
 using Otoge.Presentation;
 using UnityEngine;
 using VContainer;
@@ -10,6 +11,7 @@ namespace Otoge.Application
     {
         [SerializeField] private NoteViewFactory noteViewFactory;
         [SerializeField] private ComboView comboView;
+        [SerializeField] private RankView rankView;
             
         protected override void Configure(IContainerBuilder builder)
         {
@@ -24,6 +26,7 @@ namespace Otoge.Application
             builder.Register<NoteContainer>(Lifetime.Singleton);
             builder.Register<InGameConfiguration>(Lifetime.Singleton);
             builder.Register<Combo>(Lifetime.Singleton);
+            builder.Register<Rank>(Lifetime.Singleton);
 
             builder.Register<IInitializable, InGameMainLoop>(Lifetime.Singleton);
             
@@ -43,6 +46,9 @@ namespace Otoge.Application
             
             builder.RegisterComponent(comboView);
             builder.Register<IInitializable, ComboPresenter>(Lifetime.Singleton);
+
+            builder.RegisterComponent(rankView);
+            builder.Register<IInitializable, RankPresenter>(Lifetime.Singleton);
         }
     }
 }

@@ -1,14 +1,22 @@
 ﻿using Otoge.Domain;
+using Otoge.Domain.Rank;
+using UniRx;
+using VContainer.Unity;
 
 namespace Otoge.Presentation
 {
-    public class RankPresenter
+    public class RankPresenter : IInitializable
     {
-        public RankPresenter(RankView view)
+        public RankPresenter(Rank rank, RankView view, LifeCycle lifeCycle)
         {
-            //TODO:仮実装.
-            var rank = GameDefine.JudgeRank.Perfect;
-            view.ApplyRankText(rank);
+            rank.OnValueChanged.SkipLatestValueOnSubscribe().Subscribe(value =>
+            {
+                view.ApplyRankText(value);    
+            }).AddTo(lifeCycle.CompositeDisposable);
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

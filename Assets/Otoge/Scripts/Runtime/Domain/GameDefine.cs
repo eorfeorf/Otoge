@@ -79,14 +79,15 @@ namespace Otoge.Domain
             Great,
             Good,
             Miss,
-            Max,
+            
+            // 配列のインデックスで使用しているので最後にNoneを追加.
+            None,
         }
 
         /// <summary>
         /// ノーツ判定によるスコア.
         /// </summary>
-        public static readonly int[] JudgeRankScore = new int[(int) JudgeRank.Max]
-        {
+        public static readonly int[] JudgeRankScore = {
             2, 1, 0, 0
         };
 

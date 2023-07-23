@@ -15,21 +15,7 @@ namespace Otoge.Presentation
         /// <param name="rank"></param>
         public void ApplyRankText(GameDefine.JudgeRank rank)
         {
-            switch (rank)
-            {
-                case GameDefine.JudgeRank.Perfect:
-                    rankText.text = GameText.RANK_PERFECT;
-                    break;
-                case GameDefine.JudgeRank.Great:
-                    rankText.text = GameText.RANK_GREAT;
-                    break;
-                case GameDefine.JudgeRank.Good:
-                    rankText.text = GameText.RANK_GOOD;
-                    break;
-                case GameDefine.JudgeRank.Miss:
-                    rankText.text = GameText.RANK_MISS;
-                    break;
-            }
+            rankText.text = GameText.RankText[rank];
         }
     }
 }
