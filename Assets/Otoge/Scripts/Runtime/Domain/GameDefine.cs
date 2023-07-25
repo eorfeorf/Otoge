@@ -1,15 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿
 
 namespace Otoge.Domain
 {
-    [Serializable]
-    public struct InputKeyToLaneData
-    {
-        public KeyCode Key;
-        public int LaneIndex;
-    }
-
     /// <summary>
     /// 定数.
     /// </summary>
@@ -18,7 +10,7 @@ namespace Otoge.Domain
         /// <summary>
         /// レーン数.
         /// </summary>
-        public static int LANE_NUM => InputKeyToLane.Length;
+        public static int LANE_NUM => 4;
 
         /// <summary>
         /// ノーツスピード.
@@ -38,34 +30,6 @@ namespace Otoge.Domain
         /// 60秒(1分間が何秒か).
         /// </summary>
         public static float SEC60 = 60;
-
-        /// <summary>
-        /// 入力とレーンの割り当て.
-        /// TODO:LaneIndexを動的に変更.
-        /// </summary>
-        public static readonly InputKeyToLaneData[] InputKeyToLane =
-        {
-            new()
-            {
-                Key = KeyCode.S,
-                LaneIndex = 0,
-            },
-            new()
-            {
-                Key = KeyCode.F,
-                LaneIndex = 1,
-            },
-            new()
-            {
-                Key = KeyCode.J,
-                LaneIndex = 2,
-            },
-            new()
-            {
-                Key = KeyCode.L,
-                LaneIndex = 3,
-            },
-        };
 
         // ノーツが通り過ぎて消えるまでの距離.
         public const float NOTE_VIEW_PASSED_DISABLE_TIME = 0.5f;
