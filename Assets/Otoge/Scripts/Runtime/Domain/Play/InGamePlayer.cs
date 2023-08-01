@@ -62,56 +62,18 @@ namespace Otoge.Domain
             
             Debug.Log("[InGamePlayer] Initialized.");
         }
-
+        
         /// <summary>
-        /// ノーツに適用.
+        /// 入力に対する処理の紐づけ.
         /// </summary>
-        /// <param name="note"></param>
-        /// <param name="progressTime"></param>
-        private void ApplyCommand(Note note, float progressTime)
-        {
-            // 叩いた.
-            var rank = NoteTiming.CheckRank(note, progressTime);
-            _noteContainer.SetActive(note, false);
-            var data = new NoteApplyData()
-            {
-                Note = note,
-                Rank = rank,
-            };
-            onApplyNote.SetValueAndForceNotify(data);
-        }
-
-        /// <summary>
-        /// ノーツが通り過ぎたか.
-        /// </summary>
-        private List<Note> GetPassNote(ICollection<Note> notes, float progressTime)
-        {
-            var passedNotes = new List<Note>();
-            foreach (var note in notes)
-            {
-                if (!note.Active)
-                {
-                    continue;
-                }
-
-                // 有効判定時間が過ぎた.
-                var passTime = note.Time + GameDefine.TimingGood;
-                if (passTime < progressTime)
-                {
-                    passedNotes.Add(note);
-                }
-            }
-
-            return passedNotes;
-        }
-
+        /// <param name="progressTimer"></param>
         private void InitInput(ProgressTimer progressTimer)
         {
             // タップ.
             _inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
             {
                 // そのレーンの生きてるノーツだけ取得.
-                var note = _noteContainer.Notes.FirstOrDefault(n => n.Value.Active && n.Value.Lane == data.Lane).Value;
+                var note = _noteContainer.NotesByLane[data.Lane].FirstOrDefault(x => x.Active);
 
                 if (note == null)
                 {
@@ -128,12 +90,12 @@ namespace Otoge.Domain
                 // 叩いた.
                 ApplyCommand(note, progressTimer.OnProgress.Value);
             }).AddTo(_lifeCycle.CompositeDisposable);
-
-            // 長押し.
-            _inputCommand.Hold.SkipLatestValueOnSubscribe().Subscribe(data =>
+            
+            // リリース.
+            _inputCommand.Tap.SkipLatestValueOnSubscribe().Subscribe(data =>
             {
                 // そのレーンの生きてるノーツだけ取得.
-                var note = _noteContainer.Notes.FirstOrDefault(n => n.Value.Lane == data.Lane && n.Value.Active).Value;
+                var note = _noteContainer.NotesByLane[data.Lane].FirstOrDefault(x => x.Active);
 
                 if (note == null)
                 {
@@ -147,8 +109,51 @@ namespace Otoge.Domain
                     return;
                 }
 
+                // 叩いた.
                 ApplyCommand(note, progressTimer.OnProgress.Value);
             }).AddTo(_lifeCycle.CompositeDisposable);
+        }
+
+        /// <summary>
+        /// ノーツに適用.
+        /// </summary>
+        /// <param name="note"></param>
+        /// <param name="progressTime"></param>
+        private void ApplyCommand(NoteBase note, float progressTime)
+        {
+            // 叩いた.
+            var rank = NoteTiming.CheckRank(note, progressTime);
+            _noteContainer.SetActive(note, false);
+            var data = new NoteApplyData()
+            {
+                Note = note,
+                Rank = rank,
+            };
+            onApplyNote.SetValueAndForceNotify(data);
+        }
+
+        /// <summary>
+        /// ノーツが通り過ぎたか.
+        /// </summary>
+        private List<NoteBase> GetPassNote(ICollection<NoteBase> notes, float progressTime)
+        {
+            var passedNotes = new List<NoteBase>();
+            foreach (var note in notes)
+            {
+                if (!note.Active)
+                {
+                    continue;
+                }
+
+                // 有効判定時間が過ぎた.
+                var passTime = note.Time + GameDefine.TimingGood;
+                if (passTime < progressTime)
+                {
+                    passedNotes.Add(note);
+                }
+            }
+
+            return passedNotes;
         }
     }
 }

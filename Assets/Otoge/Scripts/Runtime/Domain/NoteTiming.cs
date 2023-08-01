@@ -12,7 +12,7 @@ namespace Otoge.Domain
         /// </summary>
         /// <param name="note"></param>
         /// <returns></returns>
-        public static bool CheckInRangeApplyTime(Note note, float progressTime)
+        public static bool CheckInRangeApplyTime(NoteBase note, float progressTime)
         {
             switch (note.Type)
             {
@@ -74,7 +74,7 @@ namespace Otoge.Domain
         /// </summary>
         /// <param name="note"></param>
         /// <returns></returns>
-        public static GameDefine.JudgeRank CheckRank(Note note, float progressTime)
+        public static GameDefine.JudgeRank CheckRank(NoteBase note, float progressTime)
         {
             var sub = note.Time - progressTime;
             sub = Mathf.Abs(sub);
@@ -89,7 +89,7 @@ namespace Otoge.Domain
                     return GameDefine.JudgeRank.Good;
                 default:
                     // ここは来ないはず.
-                    Debug.LogError($"[GameModel] Invalid rank. Note:{note.PairId},{note.Time}, Sub:{sub}");
+                    Debug.LogError($"[GameModel] Invalid rank. Note:{note.Uid},{note.Time}, Sub:{sub}");
                     return GameDefine.JudgeRank.Miss;
             }
         }

@@ -5,6 +5,7 @@
     /// </summary>
     public struct InputEventData
     {
-        public int PointerId;
+        public int TouchId;
+        public float Time;
     }
 }

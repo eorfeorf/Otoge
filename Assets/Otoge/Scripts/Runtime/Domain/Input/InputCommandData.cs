@@ -7,5 +7,6 @@ namespace Otoge.Domain
     public struct InputCommandData
     {
         public int Lane;
+        public float Time;
     }
 }

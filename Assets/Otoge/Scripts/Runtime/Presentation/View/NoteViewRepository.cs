@@ -12,8 +12,8 @@ namespace Otoge.Presentation
     /// </summary>
     public class NoteViewRepository : IDisposable
     {
-        public IList<NoteViewTap> NoteView => _noteView;
-        private readonly List<NoteViewTap> _noteView = new();
+        public IList<NoteViewTap> NoteViews => _noteViews;
+        private readonly List<NoteViewTap> _noteViews = new();
 
         [Inject]
         public NoteViewRepository(NoteViewFactory noteViewFactory, NoteContainer noteContainer, InGameViewInfo inGameViewInfo)
@@ -21,8 +21,8 @@ namespace Otoge.Presentation
             foreach (var note in noteContainer.Notes.Select(x => x.Value))
             {
                 var view = noteViewFactory.CreateNoteView(note.Type);
-                view.Initialize(note.Time, note.Lane, note.Size, inGameViewInfo);
-                _noteView.Add(view);
+                view.Initialize(note.Time, note.ExData.Lane, note.Size, inGameViewInfo);
+                _noteViews.Add(view);
             }
             
             Debug.Log("[NoteViewRepository] Initialized");
@@ -30,7 +30,7 @@ namespace Otoge.Presentation
 
         public void Dispose()
         {
-            _noteView.Clear();
+            _noteViews.Clear();
         }
     }
 }

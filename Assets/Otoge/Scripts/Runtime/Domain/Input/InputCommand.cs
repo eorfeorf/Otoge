@@ -19,12 +19,6 @@ namespace Otoge.Domain
         private readonly ReactiveProperty<InputCommandData> tap = new();
 
         /// <summary>
-        /// ホールド.
-        /// </summary>
-        public IReadOnlyReactiveProperty<InputCommandData> Hold => hold;
-        private readonly ReactiveProperty<InputCommandData> hold = new();
-
-        /// <summary>
         /// リリース.
         /// </summary>
         public IReadOnlyReactiveProperty<InputCommandData> Release => _release;
@@ -39,7 +33,7 @@ namespace Otoge.Domain
             inputEvent.Push.SkipLatestValueOnSubscribe().Subscribe(inputEventData =>
             {
                 // すでに触った.
-                if (inputEventMap.ContainsKey(inputEventData.PointerId))
+                if (inputEventMap.ContainsKey(inputEventData.TouchId))
                 {
                     // TODO:ホールドノーツ考慮.
                     // var holdData = new InputCommandData()
@@ -50,12 +44,12 @@ namespace Otoge.Domain
                     return;
                 }
 
-                inputEventMap.Add(inputEventData.PointerId, inputEventData);
+                inputEventMap.Add(inputEventData.TouchId, inputEventData);
 
                 // タップ.
                 var tapData = new InputCommandData()
                 {
-                    Lane = inputEventData.PointerId
+                    Lane = inputEventData.TouchId
                 };
                 tap.SetValueAndForceNotify(tapData);
             }).AddTo(lifeCycle.CompositeDisposable);
@@ -63,9 +57,9 @@ namespace Otoge.Domain
             // 離した.
             inputEvent.Release.SkipLatestValueOnSubscribe().Subscribe(inputEventData =>
             {
-                if (inputEventMap.ContainsKey(inputEventData.PointerId))
+                if (inputEventMap.ContainsKey(inputEventData.TouchId))
                 {
-                    inputEventMap.Remove(inputEventData.PointerId);
+                    inputEventMap.Remove(inputEventData.TouchId);
 
                     // ホールドノーツの指を離した.
                     // どうやってホールドノーツとわかるのか？.
@@ -73,7 +67,7 @@ namespace Otoge.Domain
                     // もしフリックがあった場合に指を離したのがフリックではないと言えるのか？.
                     var holdReleaseData = new InputCommandData()
                     {
-                        Lane = inputEventData.PointerId
+                        Lane = inputEventData.TouchId
                     };
                     _release.SetValueAndForceNotify(holdReleaseData);
                 }

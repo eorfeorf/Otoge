@@ -1,5 +1,6 @@
 ﻿using Otoge.Domain;
 using UniRx;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 
@@ -31,8 +32,11 @@ namespace Otoge.Presentation
             {
                 foreach (var e in InputConfigure.InputKeyToLane)
                 {
-                    var data = new InputEventData();
-                    data.PointerId = e.LaneIndex;
+                    var data = new InputEventData
+                    {
+                        TouchId = e.LaneIndex,
+                        Time = Time.time,
+                    };
 
                     Keyboard keyboard = Keyboard.current;
                     if (keyboard[e.Key].wasPressedThisFrame)

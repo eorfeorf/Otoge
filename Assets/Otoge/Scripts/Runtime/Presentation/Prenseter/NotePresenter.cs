@@ -56,7 +56,7 @@ namespace Otoge.Presentation
         private void UpdateProgressTime(float progressTime)
         {
             // ノーツの位置.
-            foreach (var view in _noteViewRepository.NoteView)
+            foreach (var view in _noteViewRepository.NoteViews)
             {
                 // ノーツ時間と経過時間を比較してノーツの位置を計算.
                 var noteView = view;
@@ -71,20 +71,20 @@ namespace Otoge.Presentation
         /// <summary>
         /// ノーツ適用.
         /// </summary>
-        /// <param name="note"></param>
-        public void ApplyNote(Note note)
+        /// <param name="noteBase"></param>
+        public void ApplyNote(NoteBase noteBase)
         {
-            _noteViewRepository.NoteView[note.UId].GameObject.SetActive(false);
+            _noteViewRepository.NoteViews[noteBase.Uid].GameObject.SetActive(false);
         }
 
         /// <summary>
         /// ノーツが通り過ぎた.
         /// 判定範囲外になったタイミングで呼び出される.
         /// </summary>
-        /// <param name="note"></param>
-        public void PassNote(Note note)
+        /// <param name="noteBase"></param>
+        public void PassNote(NoteBase noteBase)
         {
-            _noteViewRepository.NoteView[note.UId].GameObject.SetActive(false);
+            _noteViewRepository.NoteViews[noteBase.Uid].GameObject.SetActive(false);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Otoge.Presentation
         /// </summary>
         public void Reset()
         {
-            foreach (var view in _noteViewRepository.NoteView)
+            foreach (var view in _noteViewRepository.NoteViews)
             {
                 view.GameObject.SetActive(true);
             }

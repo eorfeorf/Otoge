@@ -1,18 +1,23 @@
 ﻿
 namespace Otoge.Domain
 {
+    public class NoteExtensionData
+    {
+        public int Lane;
+    }
+    
+    
     /// <summary>
     /// ノーツデータ(共有データ).
     /// </summary>
-    public class Note
+    public class NoteBase
     {
         public NoteType Type;
         public bool Active;
-        public int Lane;
         public float Time;
-        public int PairId;
-        public int Size; // ノーツの横幅
-
-        public int UId;
+        public int Size;
+        public int Uid;
+        
+        public NoteExtensionData ExData;
     }   
 }
